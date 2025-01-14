@@ -1,5 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  FaMapMarkerAlt,
+  FaUserMd,
+  FaCalendarAlt,
+  FaClock,
+  FaDollarSign,
+  FaUsers,
+} from "react-icons/fa";
 
 const PopularCamps = () => {
   const navigate = useNavigate();
@@ -75,7 +83,7 @@ const PopularCamps = () => {
   ]);
 
   return (
-    <div className="bg-gray-50">
+    <div className="">
       <h2 className="text-3xl font-bold text-center mb-6">
         Popular Medical Camps
       </h2>
@@ -91,40 +99,50 @@ const PopularCamps = () => {
               className="w-full h-48 object-cover"
             />
             <div className="p-4">
-              <h3 className="text-xl font-bold mb-2">{camp.name}</h3>
-              <p className="text-gray-600 mb-1">
+              <h3 className="text-xl font-bold mb-3">{camp.name}</h3>
+              <p className="text-gray-600 flex items-center mb-2">
+                <FaDollarSign className="mr-2 text-teal-500" />
                 <span className="font-semibold">Fees:</span> {camp.fees}
               </p>
-              <p className="text-gray-600 mb-1">
+              <p className="text-gray-600 flex items-center mb-2">
+                <FaCalendarAlt className="mr-2 text-teal-500" />
                 <span className="font-semibold">Date:</span> {camp.date}
               </p>
-              <p className="text-gray-600 mb-1">
+              <p className="text-gray-600 flex items-center mb-2">
+                <FaClock className="mr-2 text-teal-500" />
                 <span className="font-semibold">Time:</span> {camp.time}
               </p>
-              <p className="text-gray-600 mb-1">
+              <p className="text-gray-600 flex items-center mb-2">
+                <FaMapMarkerAlt className="mr-2 text-teal-500" />
                 <span className="font-semibold">Location:</span> {camp.location}
               </p>
-              <p className="text-gray-600 mb-1">
-                <span className="font-semibold">Healthcare Professional:</span>{" "}
+              <p className="text-gray-600 flex items-center mb-2">
+                <FaUserMd className="mr-2 text-teal-500" />
+                <span className="font-semibold">
+                  Healthcare Professional:
+                </span>{" "}
                 {camp.professional}
               </p>
-              <p className="text-gray-600 mb-4">
+              <p className="text-gray-600 flex items-center mb-4">
+                <FaUsers className="mr-2 text-teal-500" />
                 <span className="font-semibold">Participants:</span>{" "}
                 {camp.participants}
               </p>
-              <button
-                onClick={() => navigate(`/camp-details/${camp.id}`)}
-                className="bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600"
-              >
-                Details
-              </button>
+              <div className="flex justify-between items-center">
+                <button
+                  onClick={() => navigate(`/camp-details/${camp.id}`)}
+                  className="bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600"
+                >
+                  Details
+                </button>
+              </div>
             </div>
           </div>
         ))}
       </div>
       <div className="text-center mt-8">
         <button
-          onClick={() => navigate("/availableCamps")}
+          onClick={() => navigate("/available-camps")}
           className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600"
         >
           See All Camps
