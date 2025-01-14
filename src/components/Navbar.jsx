@@ -41,12 +41,12 @@ const Navbar = () => {
       <div className="w-11/12 flex flex-wrap items-center justify-between mx-auto py-4">
         <Link
           to="/"
-          className="flex items-center space-x-3 rtl:space-x-reverse"
+          // className="flex items-center space-x-3 rtl:space-x-reverse"
         >
           <img src={logo} className="h-8" alt="Flowbite Logo" />
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-            Flowbite
-          </span>
+          {/* <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+            LIFE CAMP
+          </span> */}
         </Link>
         <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
           <button
