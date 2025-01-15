@@ -23,6 +23,7 @@ export const router = createBrowserRouter([
       {
         path: "JoinUs",
         element: <Login></Login>,
+        // element: <Register></Register>,
       },
       {
         path: "register",
