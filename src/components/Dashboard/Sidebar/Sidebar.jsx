@@ -14,9 +14,11 @@ import { MdEventAvailable } from "react-icons/md";
 import { RiMoneyDollarCircleLine } from "react-icons/ri";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../../assets/logo.png";
+import useAdmin from "../../../hooks/useAdmin";
 
 const Sidebar = () => {
   const [isActive, setActive] = useState(false);
+  const [isAdmin] = useAdmin();
 
   // Sidebar Responsive Handler
   const handleToggle = () => {
@@ -54,61 +56,61 @@ const Sidebar = () => {
         {/* dashboard side bar */}
         <div className="">
           <ul className="menu text-white md:text-base lg:text-lg font-medium p-4">
-            {/* {isAdmin ? ( */}
-            <>
-              <li>
-                <NavLink to="/dashboard/admin-profile">
-                  <BiUserCheck></BiUserCheck>
-                  Organizer Profile
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/dashboard/add-camp">
-                  <AiOutlinePlusCircle></AiOutlinePlusCircle>
-                  Add A Camp
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/dashboard/manage-camps">
-                  <HiOutlineClipboardList></HiOutlineClipboardList>
-                  Manage Camps
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/dashboard/manage-registered-camps">
-                  <FaTasks></FaTasks>
-                  Manage Registered Camps
-                </NavLink>
-              </li>
-            </>
-            {/* ) : ( */}
-            <>
-              <li>
-                <NavLink to="/dashboard/userHome">
-                  <FiBarChart2></FiBarChart2>
-                  Analytics
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/dashboard/history">
-                  <FaUserCircle></FaUserCircle>
-                  Participant Profile
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/dashboard/cart">
-                  <MdEventAvailable></MdEventAvailable>
-                  Registered Camps
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/dashboard/review">
-                  <RiMoneyDollarCircleLine></RiMoneyDollarCircleLine>
-                  Payment History
-                </NavLink>
-              </li>
-            </>
-            {/* )} */}
+            {isAdmin ? (
+              <>
+                <li>
+                  <NavLink to="/dashboard/admin-profile">
+                    <BiUserCheck></BiUserCheck>
+                    Organizer Profile
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/dashboard/add-camp">
+                    <AiOutlinePlusCircle></AiOutlinePlusCircle>
+                    Add A Camp
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/dashboard/manage-camps">
+                    <HiOutlineClipboardList></HiOutlineClipboardList>
+                    Manage Camps
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/dashboard/manage-registered-camps">
+                    <FaTasks></FaTasks>
+                    Manage Registered Camps
+                  </NavLink>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <NavLink to="/dashboard/userHome">
+                    <FiBarChart2></FiBarChart2>
+                    Analytics
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/dashboard/history">
+                    <FaUserCircle></FaUserCircle>
+                    Participant Profile
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/dashboard/cart">
+                    <MdEventAvailable></MdEventAvailable>
+                    Registered Camps
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/dashboard/review">
+                    <RiMoneyDollarCircleLine></RiMoneyDollarCircleLine>
+                    Payment History
+                  </NavLink>
+                </li>
+              </>
+            )}
             {/* shared nav links */}
             <div className="divider"></div>
             <li>
