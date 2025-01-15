@@ -6,6 +6,7 @@ import CampDetails from "../pages/CampDetails/CampDetails";
 import Dashboard from "../layouts/Dashboard";
 import Login from "../pages/JoinUs/Login";
 import Register from "../pages/JoinUs/Register";
+import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
 
 export const router = createBrowserRouter([
   {
@@ -38,5 +39,11 @@ export const router = createBrowserRouter([
   {
     path: "dashboard",
     element: <Dashboard></Dashboard>,
+    children: [
+      {
+        path: 'users',
+        element:<AllUsers></AllUsers>
+      }
+    ]
   },
 ]);

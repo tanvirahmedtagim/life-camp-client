@@ -1,5 +1,5 @@
 import { FcGoogle } from "react-icons/fc";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
@@ -10,6 +10,10 @@ import useAuth from "../../hooks/useAuth";
 const Login = () => {
   const navigate = useNavigate();
   const { handleLogin, handleGoogleLogin } = useAuth();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
+  console.log("state in the location login page", location.state);
 
   // Initialize React Hook Form
   const {

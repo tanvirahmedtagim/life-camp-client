@@ -57,25 +57,25 @@ const Sidebar = () => {
             {/* {isAdmin ? ( */}
             <>
               <li>
-                <NavLink to="/dashboard/adminHome">
+                <NavLink to="/dashboard/admin-profile">
                   <BiUserCheck></BiUserCheck>
                   Organizer Profile
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/addItems">
+                <NavLink to="/dashboard/add-camp">
                   <AiOutlinePlusCircle></AiOutlinePlusCircle>
                   Add A Camp
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/manageItems">
+                <NavLink to="/dashboard/manage-camps">
                   <HiOutlineClipboardList></HiOutlineClipboardList>
                   Manage Camps
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/bookings">
+                <NavLink to="/dashboard/manage-registered-camps">
                   <FaTasks></FaTasks>
                   Manage Registered Camps
                 </NavLink>
