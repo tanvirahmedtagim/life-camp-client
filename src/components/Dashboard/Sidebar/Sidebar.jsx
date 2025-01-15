@@ -33,7 +33,7 @@ const Sidebar = () => {
                 // className='hidden md:block'
                 src={logo}
                 alt="logo"
-               className="h-10"
+                className="h-10"
               />
             </Link>
           </div>
@@ -78,12 +78,6 @@ const Sidebar = () => {
                 <NavLink to="/dashboard/manage-registered-camps">
                   <FaTasks></FaTasks>
                   Manage Registered Camps
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/dashboard/users">
-                  <FaUsers></FaUsers>
-                  All Users
                 </NavLink>
               </li>
             </>
