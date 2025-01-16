@@ -7,6 +7,9 @@ import Dashboard from "../layouts/Dashboard";
 import Login from "../pages/JoinUs/Login";
 import Register from "../pages/JoinUs/Register";
 import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
+import Profile from "../pages/Dashboard/Common/Profile";
+import AddCamp from "../pages/Dashboard/Admin/AddCamp";
 
 export const router = createBrowserRouter([
   {
@@ -43,5 +46,35 @@ export const router = createBrowserRouter([
         <Dashboard></Dashboard>,
       </PrivateRoute>
     ),
+    children: [
+      {
+        path: "admin-profile",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <Profile />
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "add-camp",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <AddCamp />
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "user-profile",
+        element: (
+          <PrivateRoute>
+            <Profile />
+          </PrivateRoute>
+        ),
+      },
+    ],
   },
 ]);

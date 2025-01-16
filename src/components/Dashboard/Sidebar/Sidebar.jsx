@@ -27,7 +27,7 @@ const Sidebar = () => {
   return (
     <>
       {/* Small Screen Navbar */}
-      <div className="bg-[#008080] text-white flex justify-between md:hidden">
+      <div className="bg-[#008080] z-40 text-white flex justify-between md:hidden">
         <div>
           <div className="block cursor-pointer p-4 font-bold">
             <Link to="/">
@@ -43,13 +43,13 @@ const Sidebar = () => {
 
         <button
           onClick={handleToggle}
-          className="mobile-menu-button text-white p-4 focus:outline-none focus:bg-[#008080]"
+          className="mobile-menu-button z-40 text-white p-4 focus:outline-none focus:bg-[#008080]"
         >
           <AiOutlineBars className="h-5 w-5" />
         </button>
       </div>
       <div
-        className={`z-10 md:fixed flex flex-col justify-between overflow-x-hidden lg:w-80 min-h-screen bg-[#008080] absolute inset-y-0 left-0 transform ${
+        className={`z-50 md:fixed flex flex-col justify-between overflow-x-hidden lg:w-80 min-h-screen bg-[#008080] absolute inset-y-0 left-0 transform ${
           isActive && "-translate-x-full"
         }  md:translate-x-0  transition duration-200 ease-in-out`}
       >
@@ -92,7 +92,7 @@ const Sidebar = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashboard/history">
+                  <NavLink to="/dashboard/user-profile">
                     <FaUserCircle></FaUserCircle>
                     Participant Profile
                   </NavLink>

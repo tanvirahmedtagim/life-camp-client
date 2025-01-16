@@ -41,7 +41,7 @@ const Navbar = () => {
       </li>
       {!user && (
         <li>
-          <NavLink to="/joinUs" className="block py-2 px-3 rounded md:p-0">
+          <NavLink to="/login" className="block py-2 px-3 rounded md:p-0">
             Join US
           </NavLink>
         </li>
