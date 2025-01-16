@@ -1,68 +1,58 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLoaderData, useParams } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import useCamp from "../../hooks/useCamp";
 
 const CampDetails = () => {
-  const { campId } = useParams();
+  const {
+    name,
+    fees,
+    dateTime,
+    location,
+    healthcareProfessionalName,
+    description,
+    participants ,
+    _id,
+    imageUrl,
+  } = useLoaderData();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Simulated logged-in user info
-  const loggedInUser = {
-    name: "John Doe",
-    email: "johndoe@example.com",
-  };
+  const { user } = useAuth();
 
   // Replace with actual API data or context
-  const camps = [
-    {
-      id: 1,
-      name: "Community Wellness Camp",
-      image: "/images/camp1.jpg",
-      fees: "$20",
-      date: "25th Jan 2025",
-      time: "10:00 AM - 4:00 PM",
-      location: "Downtown Health Center",
-      professional: "Dr. Emily Carter",
-      participants: 10,
-      description:
-        "A camp focusing on community wellness with expert guidance.",
-    },
-    // Add additional camp data here...
-  ];
+  const [camps] = useCamp();
 
-  const camp = camps.find((c) => c.id === parseInt(campId));
-
-  if (!camp) {
+  if (!camps) {
     return <div className="text-center mt-10">Camp not found!</div>;
   }
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-gray-50 rounded-lg shadow-lg mt-10">
       <img
-        src={camp.image}
-        alt={camp.name}
+        src={imageUrl}
+        alt={name}
         className="w-full h-64 object-cover rounded-lg mb-4"
       />
-      <h2 className="text-3xl font-bold mb-4">{camp.name}</h2>
+      <h2 className="text-3xl font-bold mb-4">{name}</h2>
       <p className="text-gray-600 mb-2">
-        <strong>Fees:</strong> {camp.fees}
+        <strong>Fees:</strong> {fees}
       </p>
       <p className="text-gray-600 mb-2">
-        <strong>Date:</strong> {camp.date}
+        <strong>Date:</strong> {dateTime}
+      </p>
+
+      <p className="text-gray-600 mb-2">
+        <strong>Location:</strong> {location}
       </p>
       <p className="text-gray-600 mb-2">
-        <strong>Time:</strong> {camp.time}
+        <strong>Healthcare Professional:</strong>{" "}
+        {healthcareProfessionalName}
       </p>
       <p className="text-gray-600 mb-2">
-        <strong>Location:</strong> {camp.location}
-      </p>
-      <p className="text-gray-600 mb-2">
-        <strong>Healthcare Professional:</strong> {camp.professional}
-      </p>
-      <p className="text-gray-600 mb-2">
-        <strong>Participants:</strong> {camp.participants}
+        <strong>Participants:</strong> {participants}
       </p>
       <p className="text-gray-600 mb-4">
-        <strong>Description:</strong> {camp.description}
+        <strong>Description:</strong> {description}
       </p>
       <button
         className="bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-600"
@@ -76,7 +66,7 @@ const CampDetails = () => {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
           <div className="bg-white mt-16 rounded-lg p-6 w-4/5 mx-auto relative overflow-y-auto max-h-[90vh]">
             <h2 className="text-2xl font-bold mb-4">
-              Register for {camp.name}
+              Register for {name}
             </h2>
             <form>
               <div className="mb-4">
@@ -85,7 +75,7 @@ const CampDetails = () => {
                 </label>
                 <input
                   type="text"
-                  value={camp.name}
+                  value={name}
                   readOnly
                   className="w-full border rounded px-3 py-2 text-gray-700"
                 />
@@ -96,7 +86,7 @@ const CampDetails = () => {
                 </label>
                 <input
                   type="text"
-                  value={camp.fees}
+                  value={fees}
                   readOnly
                   className="w-full border rounded px-3 py-2 text-gray-700"
                 />
@@ -107,7 +97,7 @@ const CampDetails = () => {
                 </label>
                 <input
                   type="text"
-                  value={camp.location}
+                  value={location}
                   readOnly
                   className="w-full border rounded px-3 py-2 text-gray-700"
                 />
@@ -118,7 +108,7 @@ const CampDetails = () => {
                 </label>
                 <input
                   type="text"
-                  value={camp.professional}
+                  value={healthcareProfessionalName}
                   readOnly
                   className="w-full border rounded px-3 py-2 text-gray-700"
                 />
@@ -130,7 +120,7 @@ const CampDetails = () => {
                   </label>
                   <input
                     type="text"
-                    value={loggedInUser.name}
+                    value={user?.displayName}
                     readOnly
                     className="w-full border rounded px-3 py-2 text-gray-700"
                   />
@@ -141,7 +131,7 @@ const CampDetails = () => {
                   </label>
                   <input
                     type="email"
-                    value={loggedInUser.email}
+                    value={user?.email}
                     readOnly
                     className="w-full border rounded px-3 py-2 text-gray-700"
                   />
@@ -163,7 +153,7 @@ const CampDetails = () => {
                     Phone Number
                   </label>
                   <input
-                    type="text"
+                    type="number"
                     placeholder="Enter your phone number"
                     className="w-full border rounded px-3 py-2 text-gray-700"
                   />
@@ -186,7 +176,7 @@ const CampDetails = () => {
                     Emergency Contact
                   </label>
                   <input
-                    type="text"
+                    type="number"
                     placeholder="Enter emergency contact number"
                     className="w-full border rounded px-3 py-2 text-gray-700"
                   />

@@ -36,8 +36,10 @@ export const router = createBrowserRouter([
         element: <Register></Register>,
       },
       {
-        path: "/camp-details/:campId",
+        path: "/camps/:id",
         element: <CampDetails></CampDetails>,
+        loader: ({ params }) =>
+          fetch(`${import.meta.env.VITE_API_URL}/camps/${params.id}`),
       },
     ],
   },

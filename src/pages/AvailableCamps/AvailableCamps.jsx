@@ -121,7 +121,7 @@ const AvailableCamps = () => {
               <p className="text-gray-600 text-sm">{camp.description}</p>
               <div className="mt-4">
                 <Link
-                  to={`/camp/${camp.id}`} // Dynamic link to the details page
+                  to={`/camps/${camp._id}`} 
                   className="bg-teal-500 text-white py-2 px-6 rounded-full hover:bg-teal-600 transition"
                 >
                   Details
