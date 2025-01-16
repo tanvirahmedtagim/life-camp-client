@@ -1,79 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
-// Dummy camp data for demo purposes
-const demoCamps = [
-  {
-    name: "Health Camp A",
-    image: "https://via.placeholder.com/150",
-    dateTime: "2025-02-20 10:00 AM",
-    location: "New York",
-    healthcareProfessional: "Dr. John Doe",
-    participantCount: 120,
-    fees: 50,
-    description:
-      "A comprehensive health camp offering free checkups and health consultations.",
-    id: 1,
-  },
-  {
-    name: "Wellness Camp B",
-    image: "https://via.placeholder.com/150",
-    dateTime: "2025-03-15 09:00 AM",
-    location: "Los Angeles",
-    healthcareProfessional: "Dr. Jane Smith",
-    participantCount: 80,
-    fees: 30,
-    description: "Join us for wellness sessions and mental health support.",
-    id: 2,
-  },
-  {
-    name: "Health Camp C",
-    image: "https://via.placeholder.com/150",
-    dateTime: "2025-04-10 11:00 AM",
-    location: "Chicago",
-    healthcareProfessional: "Dr. Alice Green",
-    participantCount: 150,
-    fees: 45,
-    description: "Free health checkup for children and seniors.",
-    id: 3,
-  },
-  {
-    name: "Health Camp D",
-    image: "https://via.placeholder.com/150",
-    dateTime: "2025-05-10 10:00 AM",
-    location: "Houston",
-    healthcareProfessional: "Dr. Bob White",
-    participantCount: 200,
-    fees: 40,
-    description: "Free eye checkup and dental services.",
-    id: 4,
-  },
-  {
-    name: "Wellness Camp E",
-    image: "https://via.placeholder.com/150",
-    dateTime: "2025-06-05 09:00 AM",
-    location: "Miami",
-    healthcareProfessional: "Dr. Clara Blue",
-    participantCount: 110,
-    fees: 25,
-    description: "Physical fitness and stress-relief camp for adults.",
-    id: 5,
-  },
-  {
-    name: "Health Camp F",
-    image: "https://via.placeholder.com/150",
-    dateTime: "2025-07-20 11:00 AM",
-    location: "Dallas",
-    healthcareProfessional: "Dr. Nancy Yellow",
-    participantCount: 90,
-    fees: 60,
-    description: "Free health camp with vaccinations and consultations.",
-    id: 6,
-  },
-  // More camps...
-];
+import useCamp from "../../hooks/useCamp";
 
 const AvailableCamps = () => {
+  const [camps] = useCamp();
   const [showAll, setShowAll] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortCriteria, setSortCriteria] = useState("name");
@@ -102,7 +32,7 @@ const AvailableCamps = () => {
   };
 
   // Filter camps based on the search term
-  const filteredCamps = demoCamps
+  const filteredCamps = camps
     .filter(
       (camp) =>
         camp.name.toLowerCase().includes(searchTerm.toLowerCase()) ||

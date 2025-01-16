@@ -27,7 +27,7 @@ const Sidebar = () => {
   return (
     <>
       {/* Small Screen Navbar */}
-      <div className="bg-[#008080] z-40 text-white flex justify-between md:hidden">
+      <div className="bg-[#008080] z-40 text-white flex justify-between lg:hidden">
         <div>
           <div className="block cursor-pointer p-4 font-bold">
             <Link to="/">
@@ -49,9 +49,9 @@ const Sidebar = () => {
         </button>
       </div>
       <div
-        className={`z-50 md:fixed flex flex-col justify-between overflow-x-hidden lg:w-80 min-h-screen bg-[#008080] absolute inset-y-0 left-0 transform ${
+        className={`z-50 lg:fixed flex flex-col justify-between overflow-x-hidden lg:w-80 min-h-screen bg-[#008080] absolute inset-y-0 left-0 transform ${
           isActive && "-translate-x-full"
-        }  md:translate-x-0  transition duration-200 ease-in-out`}
+        }  lg:translate-x-0  transition duration-200 ease-in-out`}
       >
         {/* dashboard side bar */}
         <div className="">
