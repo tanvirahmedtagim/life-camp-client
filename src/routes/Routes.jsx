@@ -12,11 +12,13 @@ import Profile from "../pages/Dashboard/Common/Profile";
 import AddCamp from "../pages/Dashboard/Admin/AddCamp";
 import ManageCamps from "../pages/Dashboard/Admin/ManageCamps";
 import UpdateCamp from "../pages/Dashboard/Admin/UpdateCamp";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
@@ -36,7 +38,7 @@ export const router = createBrowserRouter([
         element: <Register></Register>,
       },
       {
-        path: "/camps/:id",
+        path: "/camp-details/:id",
         element: <CampDetails></CampDetails>,
         loader: ({ params }) =>
           fetch(`${import.meta.env.VITE_API_URL}/camps/${params.id}`),
@@ -50,6 +52,7 @@ export const router = createBrowserRouter([
         <Dashboard></Dashboard>,
       </PrivateRoute>
     ),
+    errorElement:<ErrorPage></ErrorPage>,
     children: [
       {
         path: "admin-profile",

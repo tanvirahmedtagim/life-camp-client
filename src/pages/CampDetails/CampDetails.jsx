@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { useLoaderData, useParams } from "react-router-dom";
+import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useCamp from "../../hooks/useCamp";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { toast } from "react-toastify";
 
 const CampDetails = () => {
   const {
@@ -11,16 +13,61 @@ const CampDetails = () => {
     location,
     healthcareProfessionalName,
     description,
-    participants ,
+    participantCount,
     _id,
     imageUrl,
   } = useLoaderData();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
 
   const { user } = useAuth();
-
-  // Replace with actual API data or context
   const [camps] = useCamp();
+  // handle form submit
+
+  const handleRegisteredCamp = async (e) => {
+    e.preventDefault();
+
+    setLoading(true);
+    const form = e.target;
+    const name = form.name.value;
+    const fees = form.fees.value;
+    const location = form.location.value;
+    const healthcareProfessionalName = form.healthcareProfessionalName.value;
+    const age = form.age.value;
+    const emergencyContact = form.emergencyContact.value;
+    const gender = form.gender.value;
+    const phone = form.phone.value;
+
+    // Create plant data object
+    const registeredCamp = {
+      name,
+      location,
+      fees,
+      healthcareProfessionalName,
+      age,
+      campId:_id,
+      emergencyContact,
+      gender,
+      phone,
+      participantName: user?.displayName,
+      participantEmail: user?.email,
+    };
+
+    console.table(registeredCamp);
+    // save plant in db
+    try {
+      // post req
+      await axiosSecure.post("/registered-camps", registeredCamp);
+      toast.success("Data Added Successfully!");
+      navigate("/availableCamps");
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   if (!camps) {
     return <div className="text-center mt-10">Camp not found!</div>;
@@ -45,11 +92,10 @@ const CampDetails = () => {
         <strong>Location:</strong> {location}
       </p>
       <p className="text-gray-600 mb-2">
-        <strong>Healthcare Professional:</strong>{" "}
-        {healthcareProfessionalName}
+        <strong>Healthcare Professional:</strong> {healthcareProfessionalName}
       </p>
       <p className="text-gray-600 mb-2">
-        <strong>Participants:</strong> {participants}
+        <strong>Participants:</strong> {participantCount}
       </p>
       <p className="text-gray-600 mb-4">
         <strong>Description:</strong> {description}
@@ -65,16 +111,15 @@ const CampDetails = () => {
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
           <div className="bg-white mt-16 rounded-lg p-6 w-4/5 mx-auto relative overflow-y-auto max-h-[90vh]">
-            <h2 className="text-2xl font-bold mb-4">
-              Register for {name}
-            </h2>
-            <form>
+            <h2 className="text-2xl font-bold mb-4">Register for {name}</h2>
+            <form onSubmit={handleRegisteredCamp}>
               <div className="mb-4">
                 <label className="block text-gray-700 font-medium mb-1">
                   Camp Name
                 </label>
                 <input
                   type="text"
+                  name="name"
                   value={name}
                   readOnly
                   className="w-full border rounded px-3 py-2 text-gray-700"
@@ -86,6 +131,7 @@ const CampDetails = () => {
                 </label>
                 <input
                   type="text"
+                  name="fees"
                   value={fees}
                   readOnly
                   className="w-full border rounded px-3 py-2 text-gray-700"
@@ -97,6 +143,7 @@ const CampDetails = () => {
                 </label>
                 <input
                   type="text"
+                  name="location"
                   value={location}
                   readOnly
                   className="w-full border rounded px-3 py-2 text-gray-700"
@@ -108,6 +155,7 @@ const CampDetails = () => {
                 </label>
                 <input
                   type="text"
+                  name="healthcareProfessionalName"
                   value={healthcareProfessionalName}
                   readOnly
                   className="w-full border rounded px-3 py-2 text-gray-700"
@@ -144,6 +192,7 @@ const CampDetails = () => {
                   </label>
                   <input
                     type="number"
+                    name="age"
                     placeholder="Enter your age"
                     className="w-full border rounded px-3 py-2 text-gray-700"
                   />
@@ -154,6 +203,7 @@ const CampDetails = () => {
                   </label>
                   <input
                     type="number"
+                    name="phone"
                     placeholder="Enter your phone number"
                     className="w-full border rounded px-3 py-2 text-gray-700"
                   />
@@ -164,7 +214,10 @@ const CampDetails = () => {
                   <label className="block text-gray-700 font-medium mb-1">
                     Gender
                   </label>
-                  <select className="w-full border rounded px-3 py-2 text-gray-700">
+                  <select
+                    className="w-full border rounded px-3 py-2 text-gray-700"
+                    name="gender"
+                  >
                     <option value="">Select Gender</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
@@ -177,6 +230,7 @@ const CampDetails = () => {
                   </label>
                   <input
                     type="number"
+                    name="emergencyContact"
                     placeholder="Enter emergency contact number"
                     className="w-full border rounded px-3 py-2 text-gray-700"
                   />
@@ -184,9 +238,8 @@ const CampDetails = () => {
               </div>
               <div className="flex justify-between">
                 <button
-                  type="button"
+                  type="submit"
                   className="bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600"
-                  onClick={() => alert("Registration Successful!")}
                 >
                   Submit
                 </button>

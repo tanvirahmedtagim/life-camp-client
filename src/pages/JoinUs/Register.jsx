@@ -25,7 +25,7 @@ const Register = () => {
       const userInfo = {
         email: result.user?.email,
         name: result.user?.displayName,
-        photo: result.user?.photoURL,
+        photoURL: result.user?.photoURL,
       };
 
       // Send user info to the backend
@@ -108,7 +108,7 @@ const Register = () => {
         }
       });
     } catch (err) {
-       toast.error(err?.message);
+      toast.error(err?.message);
     }
   };
 

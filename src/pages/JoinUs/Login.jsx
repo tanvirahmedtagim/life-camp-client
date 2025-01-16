@@ -6,14 +6,16 @@ import Swal from "sweetalert2";
 // import sideLogo from "../assets/login.jpg";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const Login = () => {
   const navigate = useNavigate();
   const { handleLogin, handleGoogleLogin } = useAuth();
   const location = useLocation();
+  const axiosPublic = useAxiosPublic();
 
-  const from = location.state?.from?.pathname || "/";
-  console.log("state in the location login page", location.state);
+  // const from = location.state?.from?.pathname || "/";
+  // console.log("state in the location login page", location.state);
 
   // Initialize React Hook Form
   const {
@@ -24,18 +26,32 @@ const Login = () => {
 
   const handleGoogleSignIn = async () => {
     try {
-      await handleGoogleLogin();
+      const result = await handleGoogleLogin();
 
+      // Extract user info from the result
+      const userInfo = {
+        email: result.user?.email,
+        name: result.user?.displayName,
+        photoURL: result.user?.photoURL,
+      };
+
+      // Send user info to the backend
+      await axiosPublic.post("/users", userInfo);
+
+      // Show success alert using SweetAlert
       Swal.fire({
         title: "Success!",
-        text: "Logged in with Google!",
+        text: "Registered in with Google!",
         icon: "success",
         confirmButtonText: "OK",
         timer: 2000,
         showConfirmButton: false,
       });
+
+      // Navigate to the home page
       navigate("/");
     } catch (err) {
+      // Show error alert using SweetAlert
       Swal.fire({
         title: "Error!",
         text: err.message || "Google sign-in failed.",
