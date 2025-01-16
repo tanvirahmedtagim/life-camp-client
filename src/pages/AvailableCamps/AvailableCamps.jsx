@@ -104,7 +104,7 @@ const AvailableCamps = () => {
             className="bg-white shadow-lg rounded-lg overflow-hidden"
           >
             <img
-              src={camp.image}
+              src={camp.imageUrl}
               alt={camp.name}
               className="w-full h-48 object-cover"
             />

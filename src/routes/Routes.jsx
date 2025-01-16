@@ -11,6 +11,7 @@ import AdminRoute from "./AdminRoute";
 import Profile from "../pages/Dashboard/Common/Profile";
 import AddCamp from "../pages/Dashboard/Admin/AddCamp";
 import ManageCamps from "../pages/Dashboard/Admin/ManageCamps";
+import UpdateCamp from "../pages/Dashboard/Admin/UpdateCamp";
 
 export const router = createBrowserRouter([
   {
@@ -77,6 +78,18 @@ export const router = createBrowserRouter([
             </AdminRoute>
           </PrivateRoute>
         ),
+      },
+      {
+        path: "update-camp/:id",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <UpdateCamp />
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`${import.meta.env.VITE_API_URL}/camps/${params.id}`),
       },
       {
         path: "user-profile",
