@@ -4,6 +4,7 @@ import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import PaymentModal from "../../../../components/Dashboard/Payment/PaymentModal";
 import useAuth from "../../../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
 
 const RegisteredCamps = () => {
   const axiosSecure = useAxiosSecure();
@@ -113,12 +114,12 @@ const RegisteredCamps = () => {
                   </button>
                   {camp.paymentStatus === "Paid" &&
                     camp.status === "Confirmed" && (
-                      <button
-                        className="bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600"
-                        onClick={() => handleFeedback(camp.id)}
+                      <Link
+                        to={`/dashboard/feedback/${camp._id}`}
+                        className="bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600 text-center"
                       >
                         Feedback
-                      </button>
+                      </Link>
                     )}
                 </td>
               </tr>
