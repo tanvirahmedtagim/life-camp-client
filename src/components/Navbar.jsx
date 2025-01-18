@@ -51,15 +51,15 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 z-50 w-full bg-[#008080] border-gray-200">
-      <div className="w-11/12 flex flex-wrap items-center justify-between mx-auto py-4">
-        <Link
+      <div className="w-11/12 flex flex-wrap items-center justify-between mx-auto py-1">
+        <Link className="flex items-center"
           to="/"
           // className="flex items-center space-x-3 rtl:space-x-reverse"
         >
-          <img src={logo} className="h-8" alt="Flowbite Logo" />
-          {/* <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+          <img src={logo} className="h-16" alt="Flowbite Logo" />
+          <span className="text-2xl md:block hidden mb-1 font-semibold whitespace-nowrap text-white">
             LIFE CAMP
-          </span> */}
+          </span>
         </Link>
         <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
           {user && (

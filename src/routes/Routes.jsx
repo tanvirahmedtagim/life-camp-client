@@ -13,6 +13,7 @@ import AddCamp from "../pages/Dashboard/Admin/AddCamp";
 import ManageCamps from "../pages/Dashboard/Admin/ManageCamps";
 import UpdateCamp from "../pages/Dashboard/Admin/UpdateCamp";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import RegisteredCamps from "../pages/Dashboard/User/RegisteredCamps/RegisteredCamps";
 
 export const router = createBrowserRouter([
   {
@@ -52,7 +53,7 @@ export const router = createBrowserRouter([
         <Dashboard></Dashboard>,
       </PrivateRoute>
     ),
-    errorElement:<ErrorPage></ErrorPage>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "admin-profile",
@@ -101,6 +102,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Profile />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "registered-camps",
+        element: (
+          <PrivateRoute>
+            <RegisteredCamps />
           </PrivateRoute>
         ),
       },

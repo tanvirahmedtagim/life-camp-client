@@ -49,7 +49,7 @@ const Sidebar = () => {
         </button>
       </div>
       <div
-        className={`z-50 lg:fixed flex flex-col justify-between overflow-x-hidden lg:w-80 min-h-screen bg-[#008080] absolute inset-y-0 left-0 transform ${
+        className={`z-50 lg:fixed flex flex-col justify-between overflow-x-hidden lg:w-80 min-h-screen mt-16 lg:mt-0 bg-[#008080] absolute inset-y-0 left-0 transform ${
           isActive && "-translate-x-full"
         }  lg:translate-x-0  transition duration-200 ease-in-out`}
       >
@@ -86,7 +86,7 @@ const Sidebar = () => {
             ) : (
               <>
                 <li>
-                  <NavLink to="/dashboard/userHome">
+                  <NavLink to="/dashboard/analytics">
                     <FiBarChart2></FiBarChart2>
                     Analytics
                   </NavLink>
@@ -98,13 +98,13 @@ const Sidebar = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashboard/cart">
+                  <NavLink to="/dashboard/registered-camps">
                     <MdEventAvailable></MdEventAvailable>
                     Registered Camps
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashboard/review">
+                  <NavLink to="/dashboard/payment-history">
                     <RiMoneyDollarCircleLine></RiMoneyDollarCircleLine>
                     Payment History
                   </NavLink>

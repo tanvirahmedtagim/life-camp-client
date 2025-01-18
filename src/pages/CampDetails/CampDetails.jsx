@@ -4,6 +4,7 @@ import useAuth from "../../hooks/useAuth";
 import useCamp from "../../hooks/useCamp";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const CampDetails = () => {
   const {
@@ -47,21 +48,32 @@ const CampDetails = () => {
       fees,
       healthcareProfessionalName,
       age,
-      campId:_id,
+      campId: _id,
       emergencyContact,
       gender,
       phone,
+      status: "Pending",
       participantName: user?.displayName,
       participantEmail: user?.email,
     };
 
-    console.table(registeredCamp);
     // save plant in db
     try {
       // post req
-      await axiosSecure.post("/registered-camps", registeredCamp);
-      toast.success("Data Added Successfully!");
-      navigate("/availableCamps");
+      const campRegRes = await axiosSecure.post(
+        "/registered-camps",
+        registeredCamp
+      );
+      if (campRegRes.data.insertedId) {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: `${form.name.value} is Registered Successfully`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate("/availableCamps");
+      }
     } catch (err) {
       console.log(err);
     } finally {
