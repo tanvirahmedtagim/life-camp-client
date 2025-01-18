@@ -204,6 +204,7 @@ const CampDetails = () => {
                   </label>
                   <input
                     type="number"
+                    required
                     name="age"
                     placeholder="Enter your age"
                     className="w-full border rounded px-3 py-2 text-gray-700"
@@ -214,6 +215,9 @@ const CampDetails = () => {
                     Phone Number
                   </label>
                   <input
+                    max={11}
+                    min={11}
+                    required
                     type="number"
                     name="phone"
                     placeholder="Enter your phone number"
@@ -227,6 +231,7 @@ const CampDetails = () => {
                     Gender
                   </label>
                   <select
+                    required
                     className="w-full border rounded px-3 py-2 text-gray-700"
                     name="gender"
                   >
@@ -242,6 +247,9 @@ const CampDetails = () => {
                   </label>
                   <input
                     type="number"
+                    max={11}
+                    min={11}
+                    required
                     name="emergencyContact"
                     placeholder="Enter emergency contact number"
                     className="w-full border rounded px-3 py-2 text-gray-700"

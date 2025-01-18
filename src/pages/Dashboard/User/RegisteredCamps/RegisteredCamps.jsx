@@ -99,7 +99,7 @@ const RegisteredCamps = () => {
                 <td className="px-4 py-2 border border-gray-300">
                   {camp.status}
                 </td>
-                <td className="px-4 py-2 border border-gray-300 space-x-2">
+                <td className="px-4 py-2 flex lg:flex-row flex-col gap-2 border border-gray-300 ">
                   <button
                     className={`${
                       camp.paymentStatus === "Paid"
