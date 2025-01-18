@@ -15,6 +15,7 @@ import UpdateCamp from "../pages/Dashboard/Admin/UpdateCamp";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import RegisteredCamps from "../pages/Dashboard/User/RegisteredCamps/RegisteredCamps";
 import PaymentHistory from "../pages/Dashboard/User/PaymentHistory/PaymentHistory";
+import Analytics from "../pages/Dashboard/User/Analytics/Analytics";
 
 export const router = createBrowserRouter([
   {
@@ -97,6 +98,14 @@ export const router = createBrowserRouter([
         ),
         loader: ({ params }) =>
           fetch(`${import.meta.env.VITE_API_URL}/camps/${params.id}`),
+      },
+      {
+        path: "analytics",
+        element: (
+          <PrivateRoute>
+            <Analytics />
+          </PrivateRoute>
+        ),
       },
       {
         path: "user-profile",
