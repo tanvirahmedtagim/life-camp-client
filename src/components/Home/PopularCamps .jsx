@@ -27,12 +27,12 @@ const PopularCamps = () => {
   });
 
   return (
-    <div className="">
-      <h2 className="text-3xl font-bold text-center mb-6">
+    <div className="" id="popularCamps">
+      <h2 className="text-3xl font-bold text-center mb-8">
         Popular Medical Camps
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {home_camps.slice(0, 6).map((camp) => (
+        {home_camps.map((camp) => (
           <div
             key={camp._id}
             className="bg-white shadow-lg rounded-lg overflow-hidden"

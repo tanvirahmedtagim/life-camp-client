@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
-// import sideLogo from "../assets/login.jpg";
+import sideLogo from "../../assets/login.jpg";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
@@ -86,7 +86,7 @@ const Login = () => {
         {/* Left Side - Image */}
         <div className="md:w-1/2 w-full mb-6 md:mb-0  md:flex items-center justify-center bg-gray-100">
           <img
-            // src={sideLogo}
+            src={sideLogo}
             alt="Side Illustration"
             className="w-full h-full"
           />
@@ -127,7 +127,7 @@ const Login = () => {
               )}
             </div>
             <div className="form-control mt-6">
-              <button className="btn w-full bg-gradient-to-r from-orange-500 to-gray-500 text-white py-3 rounded-lg hover:opacity-90 focus:outline-none transform hover:scale-105 transition-all duration-300 ease-in-out">
+              <button className="btn w-full bg-gradient-to-r from-teal-500 to-[#04d6d6] text-white py-3 rounded-lg hover:opacity-90 focus:outline-none transform hover:scale-105 transition-all duration-300 ease-in-out">
                 Login
               </button>
             </div>
@@ -135,7 +135,7 @@ const Login = () => {
           <div className="my-4 text-center">
             <button
               onClick={handleGoogleSignIn}
-              className="btn w-full bg-gradient-to-r from-orange-500 via-orange-500 to-orange-500 text-white py-3 rounded-lg flex justify-center items-center hover:opacity-90 transition-all duration-300"
+              className="btn w-full bg-gradient-to-r from-teal-500  to-[#04d6d6] text-white py-3 rounded-lg flex justify-center items-center hover:opacity-90 transition-all duration-300"
             >
               <FcGoogle className="mr-3" fontSize="24" />
               Login With Google

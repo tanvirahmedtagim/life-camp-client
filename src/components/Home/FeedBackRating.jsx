@@ -56,10 +56,9 @@ export default function FeedBackRating() {
       return res.data;
     },
   });
-  console.log(testimonials);
 
   return (
-    <section className="mt-12" id="testimonial">
+    <section className="" id="testimonial">
       <div className="main gap-4 flex flex-col justify-center">
         <div className="head-p text-charcoal uppercase text-center font-bold text-3xl mb-4">
           <h1>What Our Customers Say</h1>
@@ -92,7 +91,7 @@ export default function FeedBackRating() {
           {testimonials.map((testimonial, index) => (
             <SwiperSlide
               key={index}
-              className="bg-white text-charcoal rounded-lg text-center font-mono p-5 shadow-lg hover:shadow-xl transition-shadow duration-300"
+              className="bg-white text-charcoal border-2 rounded-lg text-center font-mono p-5 shadow-xl hover:shadow-2xl transition-shadow duration-300 mb-2"
             >
               <div className="testimonials-profile-circle flex justify-center items-center mb-4">
                 <img

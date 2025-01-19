@@ -1,4 +1,4 @@
-// import sideLogo from "../../assets/others/authentication2.png";
+import sideLogo from "../../assets/register.jpg";
 // import bgImg from "../../assets/others/authentication.png";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
@@ -127,9 +127,9 @@ const Register = () => {
           //   style={{ backgroundImage: `url(${bgImg})` }}
         >
           <img
-            // src={sideLogo}
+            src={sideLogo}
             alt="Side Illustration"
-            className="w-3/4 h-auto"
+            className="w-full h-full"
           />
         </div>
 
@@ -227,7 +227,7 @@ const Register = () => {
               </span>
             </div>
             <div className="form-control mt-6">
-              <button className="btn text-white hover:bg-orange-600 bg-orange-500">
+              <button className="btn text-white hover:bg-teal-600 bg-gradient-to-r from-teal-500 to-blue-700">
                 Register
               </button>
             </div>
@@ -235,13 +235,13 @@ const Register = () => {
           <div className="my-1 mx-8 text-center">
             <button
               onClick={handleGoogleSignIn}
-              className="btn w-full bg-gradient-to-r from-orange-500 via-orange-500 to-orange-500 text-white py-3 rounded-lg flex justify-center items-center hover:opacity-90 transition-all duration-300"
+              className="btn w-full bg-gradient-to-r from-teal-500 to-blue-700 text-white py-3 rounded-lg flex justify-center items-center hover:opacity-90 transition-all duration-300"
             >
               <FcGoogle className="mr-3" fontSize="24" />
               Register With Google
             </button>
           </div>
-          <p className="text-center text-orange-500 pb-4">
+          <p className="text-center text-teal-500 pb-4">
             Already Have An Account?
             <Link className="font-bold text-gray-700" to="/login">
               Login
