@@ -25,6 +25,27 @@ const CampDetails = () => {
 
   const { user } = useAuth();
   const [camps] = useCamp();
+
+
+
+  const handleJoinCampClick = () => {
+    if (!user) {
+      Swal.fire({
+        title: "Please log in",
+        text: "You need to log in to register for this camp.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Log In",
+        cancelButtonText: "Cancel",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/login");
+        }
+      });
+    } else {
+      setIsModalOpen(true);
+    }
+  };
   // handle form submit
 
   const handleRegisteredCamp = async (e) => {
@@ -114,7 +135,7 @@ const CampDetails = () => {
       </p>
       <button
         className="bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-600"
-        onClick={() => setIsModalOpen(true)}
+        onClick={handleJoinCampClick}
       >
         Join Camp
       </button>

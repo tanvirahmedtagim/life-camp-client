@@ -5,34 +5,36 @@ import "swiper/css/free-mode";
 import "swiper/css/pagination";
 
 import { FreeMode, Pagination } from "swiper/modules";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
-// Dummy testimonial data
-const testimonials = [
-  {
-    name: "John Doe",
-    image: "https://i.ibb.co.com/Tb9nSRB/user17.jpg",
-    rating: 5,
-    review: "Amazing service and great cars. Highly recommend!",
-  },
-  {
-    name: "Jane Smith",
-    image: "https://i.ibb.co.com/2jRDVCT/user14.jpg",
-    rating: 4,
-    review: "Great experience overall, but could be faster.",
-  },
-  {
-    name: "Mark Wilson",
-    image: "https://i.ibb.co.com/tYXpZrH/user19.jpg",
-    rating: 5,
-    review: "Best service I've ever received. Would come back anytime!",
-  },
-  {
-    name: "Emerson Davis",
-    image: "https://i.ibb.co.com/LPNsnfr/user11.jpg",
-    rating: 4,
-    review: "Very good, but they could improve their customer support.",
-  },
-];
+// // Dummy testimonial data
+// const testimonials = [
+//   {
+//     name: "John Doe",
+//     image: "https://i.ibb.co.com/Tb9nSRB/user17.jpg",
+//     rating: 5,
+//     review: "Amazing service and great cars. Highly recommend!",
+//   },
+//   {
+//     name: "Jane Smith",
+//     image: "https://i.ibb.co.com/2jRDVCT/user14.jpg",
+//     rating: 4,
+//     review: "Great experience overall, but could be faster.",
+//   },
+//   {
+//     name: "Mark Wilson",
+//     image: "https://i.ibb.co.com/tYXpZrH/user19.jpg",
+//     rating: 5,
+//     review: "Best service I've ever received. Would come back anytime!",
+//   },
+//   {
+//     name: "Emerson Davis",
+//     image: "https://i.ibb.co.com/LPNsnfr/user11.jpg",
+//     rating: 4,
+//     review: "Very good, but they could improve their customer support.",
+//   },
+// ];
 
 // Helper function for rendering stars
 const renderStars = (rating) => {
@@ -42,6 +44,20 @@ const renderStars = (rating) => {
 };
 
 export default function FeedBackRating() {
+  const axiosPublic = useAxiosPublic();
+  const {
+    data: testimonials = [],
+    isPending: loading,
+    refetch,
+  } = useQuery({
+    queryKey: ["testimonials"],
+    queryFn: async () => {
+      const res = await axiosPublic.get("/home-feedback");
+      return res.data;
+    },
+  });
+  console.log(testimonials);
+
   return (
     <section className="mt-12" id="testimonial">
       <div className="main gap-4 flex flex-col justify-center">
@@ -86,9 +102,9 @@ export default function FeedBackRating() {
                 />
               </div>
               <p className="mt-4 text-gray-700">
-                {testimonial.review.length > 30
-                  ? `${testimonial.review.slice(0, 30)}...`
-                  : testimonial.review}
+                {testimonial.description.length > 50
+                  ? `${testimonial.description.slice(0, 50)}...`
+                  : testimonial.description}
               </p>
               <div className="rating mt-1 text-xl">
                 <span className="text-teal-500">

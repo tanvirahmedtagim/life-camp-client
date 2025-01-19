@@ -8,79 +8,23 @@ import {
   FaDollarSign,
   FaUsers,
 } from "react-icons/fa";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
 
 const PopularCamps = () => {
   const navigate = useNavigate();
-
-  // Sample data for popular camps
-  const [camps, setCamps] = useState([
-    {
-      id: 1,
-      name: "Community Wellness Camp",
-      image: "/images/camp1.jpg",
-      fees: "$20",
-      date: "25th Jan 2025",
-      time: "10:00 AM - 4:00 PM",
-      location: "Downtown Health Center",
-      professional: "Dr. Emily Carter",
-      participants: 10,
+  const axiosPublic = useAxiosPublic();
+  const {
+    data: home_camps = [],
+    isPending: loading,
+    refetch,
+  } = useQuery({
+    queryKey: ["home_camps"],
+    queryFn: async () => {
+      const res = await axiosPublic.get("/home-camps");
+      return res.data;
     },
-    {
-      id: 2,
-      name: "Maternal Health Awareness",
-      image: "/images/camp2.jpg",
-      fees: "$15",
-      date: "5th Feb 2025",
-      time: "9:00 AM - 3:00 PM",
-      location: "Green Valley Clinic",
-      professional: "Dr. Sarah Wilson",
-      participants: 20,
-    },
-    {
-      id: 3,
-      name: "Senior Citizen Wellness Camp",
-      image: "/images/camp3.jpg",
-      fees: "$25",
-      date: "10th Feb 2025",
-      time: "11:00 AM - 5:00 PM",
-      location: "Harmony Care Center",
-      professional: "Dr. John Smith",
-      participants: 15,
-    },
-    {
-      id: 4,
-      name: "Youth Mental Health Workshop",
-      image: "/images/camp4.jpg",
-      fees: "$30",
-      date: "15th Feb 2025",
-      time: "10:00 AM - 3:00 PM",
-      location: "City Mental Wellness Center",
-      professional: "Dr. Laura Brown",
-      participants: 25,
-    },
-    {
-      id: 5,
-      name: "Diabetes Awareness Camp",
-      image: "/images/camp5.jpg",
-      fees: "$10",
-      date: "20th Feb 2025",
-      time: "8:00 AM - 2:00 PM",
-      location: "HealthHub Center",
-      professional: "Dr. Robert Lee",
-      participants: 30,
-    },
-    {
-      id: 6,
-      name: "Cardiac Care Camp",
-      image: "/images/camp6.jpg",
-      fees: "$40",
-      date: "28th Feb 2025",
-      time: "9:00 AM - 1:00 PM",
-      location: "Heartline Hospital",
-      professional: "Dr. Alice Green",
-      participants: 50,
-    },
-  ]);
+  });
 
   return (
     <div className="">
@@ -88,13 +32,13 @@ const PopularCamps = () => {
         Popular Medical Camps
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {camps.slice(0, 6).map((camp) => (
+        {home_camps.slice(0, 6).map((camp) => (
           <div
-            key={camp.id}
+            key={camp._id}
             className="bg-white shadow-lg rounded-lg overflow-hidden"
           >
             <img
-              src={camp.image}
+              src={camp.imageUrl}
               alt={camp.name}
               className="w-full h-48 object-cover"
             />
@@ -106,12 +50,9 @@ const PopularCamps = () => {
               </p>
               <p className="text-gray-600 flex items-center mb-2">
                 <FaCalendarAlt className="mr-2 text-teal-500" />
-                <span className="font-semibold">Date:</span> {camp.date}
+                <span className="font-semibold">Date:</span> {camp.dateTime}
               </p>
-              <p className="text-gray-600 flex items-center mb-2">
-                <FaClock className="mr-2 text-teal-500" />
-                <span className="font-semibold">Time:</span> {camp.time}
-              </p>
+
               <p className="text-gray-600 flex items-center mb-2">
                 <FaMapMarkerAlt className="mr-2 text-teal-500" />
                 <span className="font-semibold">Location:</span> {camp.location}
@@ -121,12 +62,12 @@ const PopularCamps = () => {
                 <span className="font-semibold">
                   Healthcare Professional:
                 </span>{" "}
-                {camp.professional}
+                {camp.healthcareProfessionalName}
               </p>
               <p className="text-gray-600 flex items-center mb-4">
                 <FaUsers className="mr-2 text-teal-500" />
                 <span className="font-semibold">Participants:</span>{" "}
-                {camp.participants}
+                {camp.participantCount}
               </p>
               <div className="flex justify-between items-center">
                 <button
@@ -142,8 +83,8 @@ const PopularCamps = () => {
       </div>
       <div className="text-center mt-8">
         <button
-          onClick={() => navigate("/available-camps")}
-          className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600"
+          onClick={() => navigate("/availableCamps")}
+          className="bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-600"
         >
           See All Camps
         </button>

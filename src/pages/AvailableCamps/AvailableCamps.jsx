@@ -1,5 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import {
+  FaMapMarkerAlt,
+  FaUserMd,
+  FaCalendarAlt,
+  FaClock,
+  FaDollarSign,
+  FaUsers,
+} from "react-icons/fa";
 import useCamp from "../../hooks/useCamp";
 
 const AvailableCamps = () => {
@@ -49,7 +57,7 @@ const AvailableCamps = () => {
         case "participants":
           return b.participantCount - a.participantCount;
         case "fees":
-          return a.fees - b.fees;
+          return b.fees - a.fees;
         default:
           return 0;
       }
@@ -98,9 +106,9 @@ const AvailableCamps = () => {
 
       {/* Camps Grid */}
       <div className={`grid ${layout} gap-6`}>
-        {campsToShow.map((camp, index) => (
+        {campsToShow.map((camp) => (
           <div
-            key={index}
+            key={camp._id}
             className="bg-white shadow-lg rounded-lg overflow-hidden"
           >
             <img
@@ -109,17 +117,33 @@ const AvailableCamps = () => {
               className="w-full h-48 object-cover"
             />
             <div className="p-4">
-              <h2 className="text-xl font-semibold">{camp.name}</h2>
-              <p className="text-gray-600 text-sm">{camp.dateTime}</p>
-              <p className="text-gray-600 text-sm">{camp.location}</p>
-              <p className="text-gray-600 text-sm">
-                Healthcare Professional: {camp.healthcareProfessional}
+              <h3 className="text-xl font-bold mb-3">{camp.name}</h3>
+              <p className="text-gray-600 flex items-center mb-2">
+                <FaDollarSign className="mr-2 text-teal-500" />
+                <span className="font-semibold">Fees:</span> {camp.fees}
               </p>
-              <p className="text-gray-600 text-sm">
-                Participants: {camp.participantCount}
+              <p className="text-gray-600 flex items-center mb-2">
+                <FaCalendarAlt className="mr-2 text-teal-500" />
+                <span className="font-semibold">Date:</span> {camp.dateTime}
               </p>
-              <p className="text-gray-600 text-sm">{camp.description}</p>
-              <div className="mt-4">
+
+              <p className="text-gray-600 flex items-center mb-2">
+                <FaMapMarkerAlt className="mr-2 text-teal-500" />
+                <span className="font-semibold">Location:</span> {camp.location}
+              </p>
+              <p className="text-gray-600 flex items-center mb-2">
+                <FaUserMd className="mr-2 text-teal-500" />
+                <span className="font-semibold">
+                  Healthcare Professional:
+                </span>{" "}
+                {camp.healthcareProfessionalName}
+              </p>
+              <p className="text-gray-600 flex items-center mb-4">
+                <FaUsers className="mr-2 text-teal-500" />
+                <span className="font-semibold">Participants:</span>{" "}
+                {camp.participantCount}
+              </p>
+              <div className="flex justify-between items-center">
                 <Link
                   to={`/camp-details/${camp._id}`}
                   className="bg-teal-500 text-white py-2 px-6 rounded-full hover:bg-teal-600 transition"
