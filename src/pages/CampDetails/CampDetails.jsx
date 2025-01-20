@@ -26,8 +26,6 @@ const CampDetails = () => {
   const { user } = useAuth();
   const [camps] = useCamp();
 
-
-
   const handleJoinCampClick = () => {
     if (!user) {
       Swal.fire({
@@ -107,7 +105,7 @@ const CampDetails = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-gray-50 rounded-lg shadow-lg mt-10">
+    <div className="max-w-4xl  mx-auto p-6 bg-gray-50 rounded-lg shadow-lg mt-10">
       <img
         src={imageUrl}
         alt={name}
@@ -142,7 +140,7 @@ const CampDetails = () => {
 
       {/* Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+        <div className="fixed inset-0 z-30 bg-black bg-opacity-50 flex justify-center items-center">
           <div className="bg-white mt-16 rounded-lg p-6 w-4/5 mx-auto relative overflow-y-auto max-h-[90vh]">
             <h2 className="text-2xl font-bold mb-4">Register for {name}</h2>
             <form onSubmit={handleRegisteredCamp}>
