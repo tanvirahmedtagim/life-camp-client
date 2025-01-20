@@ -234,8 +234,7 @@ const CampDetails = () => {
                     Phone Number
                   </label>
                   <input
-                    max={11}
-                    min={11}
+                    
                     required
                     type="number"
                     name="phone"
@@ -266,8 +265,7 @@ const CampDetails = () => {
                   </label>
                   <input
                     type="number"
-                    max={11}
-                    min={11}
+                    
                     required
                     name="emergencyContact"
                     placeholder="Enter emergency contact number"
