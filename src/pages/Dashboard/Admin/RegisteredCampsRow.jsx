@@ -18,8 +18,9 @@ const RegisteredCampsRow = ({ campData, refetch }) => {
       await axiosSecure.patch(`/registered-camps/${_id}`, {
         status: newStatus,
       });
-      refetch(); 
+     
       toast.success("Status updated successfully");
+       refetch(); 
     } catch (err) {
       console.error(err);
       toast.error(err.response?.data || "Failed to update status");
