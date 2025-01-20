@@ -98,10 +98,10 @@ const Footer = () => {
           <div>
             <h3 className="text-teal-500 font-semibold mb-4">Our Doctors</h3>
             <ul className="space-y-2">
-              <li></li>
-              <li>Airport Transfer</li>
-              <li>Travel Rental</li>
-              <li>Luxury Rental</li>
+              <li>Dr. K. Alam (Pediatrician)</li>
+              <li>Dr. R. Hossain (Dentist)</li>
+              <li>Dr. S. Karim (Eye Specialist)</li>
+              <li>Dr. A. Kabir (General Physician) </li>
             </ul>
           </div>
 
@@ -123,7 +123,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="border-t border-gray-700 py-4 text-center text-sm">
-          <p>© 2024 Life Camp. All rights reserved.</p>
+          <p>© 2025 Life Camp. All rights reserved.</p>
         </div>
       </footer>
     </div>

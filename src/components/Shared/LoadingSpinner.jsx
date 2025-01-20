@@ -1,5 +1,5 @@
 import React from "react";
-import { ScaleLoader } from "react-spinners";
+import { BounceLoader } from "react-spinners";
 
 const LoadingSpinner = ({ smallHeight }) => {
   return (
@@ -10,7 +10,7 @@ const LoadingSpinner = ({ smallHeight }) => {
       justify-center 
       items-center `}
     >
-      <ScaleLoader size={100} color="lime" />
+      <BounceLoader size={100} color="#0b7f68" />
     </div>
   );
 };

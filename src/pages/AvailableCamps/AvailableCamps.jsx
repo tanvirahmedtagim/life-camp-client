@@ -4,14 +4,14 @@ import {
   FaMapMarkerAlt,
   FaUserMd,
   FaCalendarAlt,
-  FaClock,
   FaDollarSign,
   FaUsers,
 } from "react-icons/fa";
 import useCamp from "../../hooks/useCamp";
+import { BounceLoader } from "react-spinners";
 
 const AvailableCamps = () => {
-  const [camps] = useCamp();
+  const [camps, loading] = useCamp(); // Ensure useCamp hook provides a loading state
   const [showAll, setShowAll] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortCriteria, setSortCriteria] = useState("name");
@@ -72,99 +72,112 @@ const AvailableCamps = () => {
         Upcoming Medical Camps
       </h1>
 
-      {/* Search Bar */}
-      <div className="mb-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-        <input
-          type="text"
-          placeholder="Search camps by name, location, or professional"
-          value={searchTerm}
-          onChange={handleSearchChange}
-          className="p-2 border border-gray-300 rounded-md w-full sm:w-2/3 md:w-1/2"
-        />
-
-        {/* Sort Dropdown */}
-        <select
-          value={sortCriteria}
-          onChange={handleSortChange}
-          className="mt-4 sm:mt-0 p-2 border border-gray-300 rounded-md w-full sm:w-auto"
-        >
-          <option value="name">Sort by Name</option>
-          <option value="participants">Sort by Most Registered</option>
-          <option value="fees">Sort by Camp Fees</option>
-        </select>
-      </div>
-
-      {/* Layout Toggle Button */}
-      <div className="mb-6 text-center">
-        <button
-          onClick={handleLayoutToggle}
-          className="bg-teal-500 text-white py-2 px-6 rounded-full hover:bg-teal-600 transition"
-        >
-          Toggle Layout
-        </button>
-      </div>
-
-      {/* Camps Grid */}
-      <div className={`grid ${layout} gap-6`}>
-        {campsToShow.map((camp) => (
-          <div
-            key={camp._id}
-            className="bg-white shadow-lg rounded-lg overflow-hidden"
-          >
-            <img
-              src={camp.imageUrl}
-              alt={camp.name}
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-4">
-              <h3 className="text-xl font-bold mb-3">{camp.name}</h3>
-              <p className="text-gray-600 flex items-center mb-2">
-                <FaDollarSign className="mr-2 text-teal-500" />
-                <span className="font-semibold">Fees:</span> {camp.fees}
-              </p>
-              <p className="text-gray-600 flex items-center mb-2">
-                <FaCalendarAlt className="mr-2 text-teal-500" />
-                <span className="font-semibold">Date:</span> {camp.dateTime}
-              </p>
-
-              <p className="text-gray-600 flex items-center mb-2">
-                <FaMapMarkerAlt className="mr-2 text-teal-500" />
-                <span className="font-semibold">Location:</span> {camp.location}
-              </p>
-              <p className="text-gray-600 flex items-center mb-2">
-                <FaUserMd className="mr-2 text-teal-500" />
-                <span className="font-semibold">
-                  Healthcare Professional:
-                </span>{" "}
-                {camp.healthcareProfessionalName}
-              </p>
-              <p className="text-gray-600 flex items-center mb-4">
-                <FaUsers className="mr-2 text-teal-500" />
-                <span className="font-semibold">Participants:</span>{" "}
-                {camp.participantCount}
-              </p>
-              <div className="flex justify-between items-center">
-                <Link
-                  to={`/camp-details/${camp._id}`}
-                  className="bg-teal-500 text-white py-2 px-6 rounded-full hover:bg-teal-600 transition"
-                >
-                  Details
-                </Link>
-              </div>
-            </div>
+      {loading ? (
+        <div className="fixed z-50 inset-0 flex items-center justify-center bg-black bg-opacity-80">
+          <div className="flex flex-col items-center justify-center">
+            <BounceLoader size={100} color="#0b7f68"></BounceLoader>
           </div>
-        ))}
-      </div>
+        </div>
+      ) : (
+        <>
+          {/* Search Bar */}
+          <div className="mb-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <input
+              type="text"
+              placeholder="Search camps by name, location, or professional"
+              value={searchTerm}
+              onChange={handleSearchChange}
+              className="p-2 border border-gray-300 rounded-md w-full sm:w-2/3 md:w-1/2"
+            />
 
-      {/* View More Button */}
-      <div className="text-center mt-8">
-        <button
-          onClick={handleToggle}
-          className="bg-teal-500 text-white py-2 px-6 rounded-full hover:bg-teal-600 transition"
-        >
-          {showAll ? "Show Less" : "View More"}
-        </button>
-      </div>
+            {/* Sort Dropdown */}
+            <select
+              value={sortCriteria}
+              onChange={handleSortChange}
+              className="mt-4 sm:mt-0 p-2 border border-gray-300 rounded-md w-full sm:w-auto"
+            >
+              <option value="name">Sort by Name</option>
+              <option value="participants">Sort by Most Registered</option>
+              <option value="fees">Sort by Camp Fees</option>
+            </select>
+          </div>
+
+          {/* Layout Toggle Button */}
+          <div className="mb-6 text-center">
+            <button
+              onClick={handleLayoutToggle}
+              className="bg-teal-500 text-white py-2 px-6 rounded-full hover:bg-teal-600 transition"
+            >
+              Toggle Layout
+            </button>
+          </div>
+
+          {/* Camps Grid */}
+          <div className={`grid ${layout} gap-6`}>
+            {campsToShow.map((camp) => (
+              <div
+                key={camp._id}
+                className="bg-white shadow-lg rounded-lg overflow-hidden"
+              >
+                <img
+                  src={camp.imageUrl}
+                  alt={camp.name}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-4">
+                  <h3 className="text-xl font-bold mb-3">{camp.name}</h3>
+                  <p className="text-gray-600 flex items-center mb-2">
+                    <FaDollarSign className="mr-2 text-teal-500" />
+                    <span className="font-semibold">Fees:</span> {camp.fees}
+                  </p>
+                  <p className="text-gray-600 flex items-center mb-2">
+                    <FaCalendarAlt className="mr-2 text-teal-500" />
+                    <span className="font-semibold">Date:</span> {camp.dateTime}
+                  </p>
+
+                  <p className="text-gray-600 flex items-center mb-2">
+                    <FaMapMarkerAlt className="mr-2 text-teal-500" />
+                    <span className="font-semibold">Location:</span>{" "}
+                    {camp.location}
+                  </p>
+                  <p className="text-gray-600 flex items-center mb-2">
+                    <FaUserMd className="mr-2 text-teal-500" />
+                    <span className="font-semibold">
+                      Healthcare Professional:
+                    </span>{" "}
+                    {camp.healthcareProfessionalName}
+                  </p>
+                  <p className="text-gray-600 flex items-center mb-4">
+                    <FaUsers className="mr-2 text-teal-500" />
+                    <span className="font-semibold">Participants:</span>{" "}
+                    {camp.participantCount}
+                  </p>
+                  <div className="flex justify-between items-center">
+                    <Link
+                      to={`/camp-details/${camp._id}`}
+                      className="bg-teal-500 text-white py-2 px-6 rounded-full hover:bg-teal-600 transition"
+                    >
+                      Details
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* View More / Show Less Button */}
+          {!loading && (
+            <div className="text-center mt-8">
+              <button
+                onClick={handleToggle}
+                className="bg-teal-500 text-white py-2 px-6 rounded-full hover:bg-teal-600 transition"
+              >
+                {showAll ? "Show Less" : "View More"}
+              </button>
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 };
