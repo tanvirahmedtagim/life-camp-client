@@ -32,7 +32,7 @@ const PopularCamps = () => {
         Popular Medical Camps
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {home_camps.map((camp) => (
+        {home_camps.slice(0, 6).map((camp) => (
           <div
             key={camp._id}
             className="bg-white shadow-lg rounded-lg overflow-hidden"
