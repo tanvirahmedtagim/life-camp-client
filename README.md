@@ -1,5 +1,5 @@
 # Life Camp(Medical Camp Management System)
-#Life Camp is a cutting-edge medical camp management system designed to streamline operations for organizers and enhance the experience for participants. It offers seamless camp creation, secure registration, real-time participant tracking, and payment integration. With user-friendly dashboards, advanced analytics, and transparent feedback systems, it ensures a smooth and impactful journey for all users.
+Life Camp is a cutting-edge medical camp management system designed to streamline operations for organizers and enhance the experience for participants. It offers seamless camp creation, secure registration, real-time participant tracking, and payment integration. With user-friendly dashboards, advanced analytics, and transparent feedback systems, it ensures a smooth and impactful journey for all users.
 
 ## Organizer Credentials
 
