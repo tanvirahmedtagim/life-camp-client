@@ -29,7 +29,7 @@ const Banner = () => {
   ];
 
   return (
-    <div className="w-full mt-4 bg-gray-100" id="banner">
+    <div className="w-full  bg-gray-100" id="banner">
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         spaceBetween={30}

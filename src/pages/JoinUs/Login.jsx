@@ -1,5 +1,5 @@
 import { FcGoogle } from "react-icons/fc";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
@@ -7,17 +7,16 @@ import sideLogo from "../../assets/login.jpg";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { ThemeContext } from "../../provider/ThemeProvider";
+import { useContext } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
   const { handleLogin, handleGoogleLogin } = useAuth();
-  const location = useLocation();
   const axiosPublic = useAxiosPublic();
 
-  // const from = location.state?.from?.pathname || "/";
-  // console.log("state in the location login page", location.state);
+  const { theme } = useContext(ThemeContext);
 
-  // Initialize React Hook Form
   const {
     register,
     handleSubmit,
@@ -81,10 +80,18 @@ const Login = () => {
   };
 
   return (
-    <div className="py-10 w-full flex items-center justify-center  bg-gray-50">
-      <div className="w-full max-w-4xl md:flex-row flex-col bg-white shadow-lg rounded-lg flex overflow-hidden">
+    <div
+      className={`mt-16 w-full flex items-center justify-center ${
+        theme === "dark" ? "bg-gray-800" : "bg-gray-50"
+      }`}
+    >
+      <div
+        className={`w-full   md:flex-row flex-col bg-white shadow-lg rounded-lg flex overflow-hidden ${
+          theme === "dark" ? "bg-gray-900 text-white" : ""
+        }`}
+      >
         {/* Left Side - Image */}
-        <div className="md:w-1/2 w-full mb-6 md:mb-0  md:flex items-center justify-center bg-gray-100">
+        <div className="md:w-1/2 w-full mb-6 md:mb-0 md:flex items-center justify-center bg-gray-100">
           <img
             src={sideLogo}
             alt="Side Illustration"
@@ -92,12 +99,22 @@ const Login = () => {
           />
         </div>
         <div className="w-full md:w-1/2 px-8 md:px-16">
-          <h1 className="text-3xl font-semibold text-center text-gray-800 md:mb-8">
+          <h1
+            className={`text-3xl font-semibold pt-5 text-center ${
+              theme === "dark" ? "text-white" : "text-gray-800"
+            } md:mb-8`}
+          >
             Login to Your Account
           </h1>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div className="form-control">
-              <label className="label text-gray-600">Email</label>
+              <label
+                className={`label ${
+                  theme === "dark" ? "text-gray-400" : "text-gray-600"
+                }`}
+              >
+                Email
+              </label>
               <input
                 name="email"
                 type="email"
@@ -111,7 +128,13 @@ const Login = () => {
               )}
             </div>
             <div className="form-control">
-              <label className="label text-gray-600">Password</label>
+              <label
+                className={`label ${
+                  theme === "dark" ? "text-gray-400" : "text-gray-600"
+                }`}
+              >
+                Password
+              </label>
               <input
                 name="password"
                 type="password"
@@ -127,7 +150,13 @@ const Login = () => {
               )}
             </div>
             <div className="form-control mt-6">
-              <button className="btn w-full bg-gradient-to-r from-teal-500 to-[#04d6d6] text-white py-3 rounded-lg hover:opacity-90 focus:outline-none transform hover:scale-105 transition-all duration-300 ease-in-out">
+              <button
+                className={`btn w-full py-3 rounded-lg hover:opacity-90 focus:outline-none transform hover:scale-105 transition-all duration-300 ease-in-out ${
+                  theme === "dark"
+                    ? "bg-teal-600"
+                    : "bg-gradient-to-r from-teal-500 to-[#04d6d6] text-white"
+                }`}
+              >
                 Login
               </button>
             </div>
@@ -135,17 +164,27 @@ const Login = () => {
           <div className="my-4 text-center">
             <button
               onClick={handleGoogleSignIn}
-              className="btn w-full bg-gradient-to-r from-teal-500  to-[#04d6d6] text-white py-3 rounded-lg flex justify-center items-center hover:opacity-90 transition-all duration-300"
+              className={`btn w-full py-3 rounded-lg flex justify-center items-center hover:opacity-90 transition-all duration-300 ${
+                theme === "dark"
+                  ? "bg-teal-600"
+                  : "bg-gradient-to-r from-teal-500 to-[#04d6d6] text-white"
+              }`}
             >
               <FcGoogle className="mr-3" fontSize="24" />
               Login With Google
             </button>
           </div>
-          <p className="text-center text-gray-600">
+          <p
+            className={`text-center ${
+              theme === "dark" ? "text-gray-400" : "text-gray-600"
+            }`}
+          >
             Don't have an account?
             <Link
               to="/register"
-              className="font-semibold text-blue-500 hover:underline"
+              className={`font-semibold ${
+                theme === "dark" ? "text-teal-400" : "text-blue-500"
+              } hover:underline`}
             >
               Register
             </Link>

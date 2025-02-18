@@ -25,7 +25,7 @@ const MainLayout = () => {
       }`}
     >
       <Navbar />
-      <div className="w-11/12 mx-auto mt-16">
+      <div className="mt-[72px]">
         <Outlet />
       </div>
       <Footer />

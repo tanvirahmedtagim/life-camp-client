@@ -117,7 +117,7 @@ const Navbar = () => {
                     <li>
                       <Link
                         onClick={handleSignOut}
-                        className="block px-4 py-2 text-lg text-[#008080] dark:text-gray-200 hover:bg-[#008080] dark:hover:bg-teal-700 hover:text-white rounded-b-xl"
+                        className="block px-4 py-2 text-lg text-[#008080] dark:text-gray-200 hover:bg-[#008080] dark:hover:bg-gray-700 hover:text-white rounded-b-xl"
                       >
                         Logout
                       </Link>

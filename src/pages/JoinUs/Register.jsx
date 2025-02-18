@@ -1,22 +1,24 @@
-import sideLogo from "../../assets/register.jpg";
-// import bgImg from "../../assets/others/authentication.png";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { FcGoogle } from "react-icons/fc";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useAuth from "../../hooks/useAuth";
+import sideLogo from "../../assets/register.jpg";
+import { ThemeContext } from "../../provider/ThemeProvider";
 
 const Register = () => {
   const navigate = useNavigate();
   const axiosPublic = useAxiosPublic();
+  const { theme } = useContext(ThemeContext);
   const [showPassword, setShowPassword] = useState(false);
   const { handleRegister, manageProfile, loading, handleGoogleLogin } =
     useAuth();
+
   const handleGoogleSignIn = async () => {
     try {
       const result = await handleGoogleLogin();
@@ -34,7 +36,7 @@ const Register = () => {
       // Show success alert using SweetAlert
       Swal.fire({
         title: "Success!",
-        text: "Registered in with Google!",
+        text: "Registered with Google!",
         icon: "success",
         confirmButtonText: "OK",
         timer: 2000,
@@ -95,7 +97,6 @@ const Register = () => {
       };
       axiosPublic.post("/users", userInfo).then((res) => {
         if (res.data.insertedId) {
-          // console.log("user added to the database");
           reset();
           Swal.fire({
             position: "top-end",
@@ -114,17 +115,20 @@ const Register = () => {
 
   return (
     <div
-      className="min-h-screen relative w-full flex items-center justify-center bg-cover bg-center"
-      //   style={{ backgroundImage: `url(${bgImg})` }}
+      className={` relative w-full flex items-center justify-center bg-cover bg-center ${
+        theme === "dark" ? "bg-gray-800" : "bg-white"
+      }`}
     >
       <div
-        className="w-full max-w-4xl bg-white shadow-lg rounded-lg flex overflow-hidden"
-        // style={{ backgroundImage: `url(${bgImg})` }}
+        className={`w-full  shadow-lg rounded-lg flex overflow-hidden ${
+          theme === "dark" ? "bg-gray-800" : "bg-white"
+        }`}
       >
         {/* Left Side - Image */}
         <div
-          className="w-1/2 hidden md:flex items-center justify-center bg-gray-100"
-          //   style={{ backgroundImage: `url(${bgImg})` }}
+          className={`w-1/2 hidden md:flex items-center justify-center ${
+            theme === "dark" ? "bg-gray-700" : "bg-gray-100"
+          }`}
         >
           <img
             src={sideLogo}
@@ -134,21 +138,39 @@ const Register = () => {
         </div>
 
         {/* Right Side - Form */}
-        <div className="w-full md:w-1/2">
+        <div
+          className={`w-full md:w-1/2 ${
+            theme === "dark" ? "bg-gray-800" : "bg-white"
+          }`}
+        >
           <form onSubmit={handleSubmit(onSubmit)} className="card-body pb-4">
-            <h1 className="text-2xl font-bold text-center">
+            <h1
+              className={`text-2xl font-bold text-center ${
+                theme === "dark" ? "text-white" : "text-gray-800"
+              }`}
+            >
               Register Your Account
             </h1>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Name</span>
+                <span
+                  className={`label-text ${
+                    theme === "dark" ? "text-white" : "text-gray-800"
+                  }`}
+                >
+                  Name
+                </span>
               </label>
               <input
                 name="name"
                 type="text"
                 {...register("name", { required: true })}
                 placeholder="name"
-                className="input input-bordered"
+                className={`input input-bordered ${
+                  theme === "dark"
+                    ? "bg-gray-700 text-white"
+                    : "bg-white text-gray-800"
+                }`}
               />
               {errors.name && (
                 <span className="text-red-500">Name is required</span>
@@ -156,14 +178,24 @@ const Register = () => {
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Email</span>
+                <span
+                  className={`label-text ${
+                    theme === "dark" ? "text-white" : "text-gray-800"
+                  }`}
+                >
+                  Email
+                </span>
               </label>
               <input
                 name="email"
                 type="email"
                 {...register("email", { required: true })}
                 placeholder="email"
-                className="input input-bordered"
+                className={`input input-bordered ${
+                  theme === "dark"
+                    ? "bg-gray-700 text-white"
+                    : "bg-white text-gray-800"
+                }`}
               />
               {errors.email && (
                 <span className="text-red-500">Email is required</span>
@@ -171,13 +203,24 @@ const Register = () => {
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Choose Photo</span>
+                <span
+                  className={`label-text ${
+                    theme === "dark" ? "text-white" : "text-gray-800"
+                  }`}
+                >
+                  Choose Photo
+                </span>
               </label>
               <input
                 type="file"
                 name="photo"
                 id="photo"
                 {...register("file", { required: true })}
+                className={`py-2${
+                  theme === "dark"
+                    ? "bg-gray-700 text-white"
+                    : "bg-white text-gray-800"
+                }`}
               />
               {errors.photo && (
                 <span className="text-red-500">Photo is required</span>
@@ -185,7 +228,13 @@ const Register = () => {
             </div>
             <div className="form-control relative">
               <label className="label">
-                <span className="label-text">Password</span>
+                <span
+                  className={`label-text ${
+                    theme === "dark" ? "text-white" : "text-gray-800"
+                  }`}
+                >
+                  Password
+                </span>
               </label>
               <input
                 name="password"
@@ -198,24 +247,28 @@ const Register = () => {
                 })}
                 type={showPassword ? "text" : "password"}
                 placeholder="password"
-                className="input input-bordered"
+                className={`input input-bordered ${
+                  theme === "dark"
+                    ? "bg-gray-700 text-white"
+                    : "bg-white text-gray-800"
+                }`}
               />
               {errors.password?.type === "required" && (
                 <span className="text-red-500">Password is required</span>
               )}
               {errors.password?.type === "minLength" && (
                 <span className="text-red-500">
-                  Password Password must be more than 8 character
+                  Password must be more than 8 characters
                 </span>
               )}
               {errors.password?.type === "maxLength" && (
                 <span className="text-red-500">
-                  Password must be less than 20 character
+                  Password must be less than 20 characters
                 </span>
               )}
               {errors.password?.type === "pattern" && (
                 <span className="text-red-500">
-                  Password must have 1 uppercase,lowercase,number and special
+                  Password must have 1 uppercase, lowercase, number, and special
                   character
                 </span>
               )}
@@ -223,7 +276,7 @@ const Register = () => {
                 onClick={() => setShowPassword(!showPassword)}
                 className="cursor-pointer absolute bottom-4 right-3 "
               >
-                {showPassword ? <FaEye></FaEye> : <FaEyeSlash></FaEyeSlash>}
+                {showPassword ? <FaEye /> : <FaEyeSlash />}
               </span>
             </div>
             <div className="form-control mt-6">

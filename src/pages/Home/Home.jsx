@@ -6,12 +6,14 @@ import ServicesOffered from "../../components/Home/ServicesOffered";
 
 const Home = () => {
   return (
-    <div className="flex flex-col gap-14">
+    <>
       <Banner></Banner>
-      <PopularCamps></PopularCamps>
-      <FeedBackRating></FeedBackRating>
-      <ServicesOffered></ServicesOffered>
-    </div>
+      <div className="flex flex-col gap-14 w-11/12 mx-auto">
+        <PopularCamps></PopularCamps>
+        <FeedBackRating></FeedBackRating>
+        <ServicesOffered></ServicesOffered>
+      </div>
+    </>
   );
 };
 
