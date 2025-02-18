@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import logo from "../../src/assets/logo.png";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import { ThemeContext } from "../provider/ThemeProvider";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, handleLogout, setLoading } = useAuth();
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   const handleSignOut = async () => {
     setLoading(true);
@@ -24,6 +26,7 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
   const links = (
     <>
       <li>
@@ -42,7 +45,7 @@ const Navbar = () => {
       {!user && (
         <li>
           <NavLink to="/login" className="block py-2 px-3 rounded md:p-0">
-            Join US
+            Join Us
           </NavLink>
         </li>
       )}
@@ -50,54 +53,63 @@ const Navbar = () => {
   );
 
   return (
-    <nav className="fixed top-0 z-50 w-full bg-[#008080] border-gray-200">
+    <nav className="fixed top-0 z-50 w-full bg-[#008080] dark:bg-teal-700 border-gray-200 transition-all">
       <div className="w-11/12 flex flex-wrap items-center justify-between mx-auto py-1">
-        <Link className="flex items-center"
-          to="/"
-          // className="flex items-center space-x-3 rtl:space-x-reverse"
-        >
-          <img src={logo} className="h-16" alt="Flowbite Logo" />
-          <span className="text-2xl md:block hidden mb-1 font-semibold whitespace-nowrap text-white">
+        {/* Logo */}
+        <Link to="/" className="flex items-center">
+          <img src={logo} className="h-16" alt="Life Camp Logo" />
+          <span className="text-2xl md:block hidden mb-1 font-semibold whitespace-nowrap text-white dark:text-gray-200">
             LIFE CAMP
           </span>
         </Link>
-        <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+
+        <div className="flex items-center md:order-2 space-x-3">
+          {/* Dark Mode Toggle Button */}
+          <button
+            onClick={toggleTheme}
+            className="relative w-14 h-8 flex items-center justify-between bg-teal-300 dark:bg-teal-700 rounded-full p-1 transition-all shadow-lg"
+          >
+            <span className="text-teal-800 dark:text-yellow-400 text-lg">
+              🌞
+            </span>
+            <span className="text-teal-500 dark:text-gray-100 text-lg">🌙</span>
+            <div
+              className={`absolute left-1 top-1 w-6 h-6 bg-white dark:bg-teal-900 rounded-full shadow-md transform transition-all ${
+                theme === "dark" ? "translate-x-6" : "translate-x-0"
+              }`}
+            ></div>
+          </button>
+
           {user && (
             <>
-              {" "}
               <button
                 type="button"
-                className="flex text-sm  rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-                id="user-menu-button"
-                aria-expanded={isDropdownOpen ? "true" : "false"}
+                className="flex text-sm rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-teal-700"
                 onClick={toggleDropdown}
               >
                 <span className="sr-only">Open user menu</span>
                 <img
                   className="w-8 h-8 rounded-full"
                   src={user?.photoURL}
-                  alt="user photo"
+                  alt="User"
                 />
               </button>
-              {/* Dropdown menu */}
+
               {isDropdownOpen && (
-                <div
-                  className="z-20 absolute lg:right-16 md:right-9 right-5 mt-60 w-48 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow-xl"
-                  id="user-dropdown"
-                >
+                <div className="absolute lg:right-16 md:right-9 right-5 mt-60 w-48 text-base list-none bg-white dark:bg-teal-700 divide-y divide-gray-100 rounded-lg shadow-xl">
                   <div className="px-4 py-3">
-                    <span className="block text-lg font-medium text-[#008080] ">
+                    <span className="block text-lg font-medium text-[#008080] dark:text-gray-200">
                       {user?.displayName}
                     </span>
-                    <span className="block text-base text-[#008080]  truncate">
+                    <span className="block text-base text-[#008080] dark:text-gray-400 truncate">
                       {user?.email}
                     </span>
                   </div>
-                  <ul className="" aria-labelledby="user-menu-button">
+                  <ul>
                     <li>
                       <Link
                         to="/dashboard"
-                        className="block px-4 py-2 text-lg text-[#008080] hover:bg-[#008080] hover:text-white bg-white  "
+                        className="block px-4 py-2 text-lg text-[#008080] dark:text-gray-200 hover:bg-[#008080] dark:hover:bg-gray-700 hover:text-white"
                       >
                         Dashboard
                       </Link>
@@ -105,7 +117,7 @@ const Navbar = () => {
                     <li>
                       <Link
                         onClick={handleSignOut}
-                        className="block px-4 py-2 text-lg text-[#008080] hover:bg-[#008080] hover:text-white bg-white rounded-b-xl "
+                        className="block px-4 py-2 text-lg text-[#008080] dark:text-gray-200 hover:bg-[#008080] dark:hover:bg-teal-700 hover:text-white rounded-b-xl"
                       >
                         Logout
                       </Link>
@@ -115,12 +127,12 @@ const Navbar = () => {
               )}
             </>
           )}
+
+          {/* Mobile Menu Button */}
           <button
             data-collapse-toggle="navbar-user"
             type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm  rounded-lg md:hidden"
-            aria-controls="navbar-user"
-            aria-expanded={isMenuOpen ? "true" : "false"}
+            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm rounded-lg md:hidden"
             onClick={toggleMenu}
           >
             <span className="sr-only">Open main menu</span>
@@ -141,13 +153,14 @@ const Navbar = () => {
             </svg>
           </button>
         </div>
+
+        {/* Navigation Links */}
         <div
           className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${
             isMenuOpen ? "block" : "hidden"
           }`}
-          id="navbar-user"
         >
-          <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg  md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 text-white bg-[#008080]">
+          <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:space-x-8 md:flex-row md:mt-0 md:border-0 text-white dark:text-gray-200 bg-[#008080] dark:bg-teal-700">
             {links}
           </ul>
         </div>

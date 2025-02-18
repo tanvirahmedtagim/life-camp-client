@@ -3,9 +3,11 @@ import Navbar from "../components/Navbar";
 import { Outlet } from "react-router-dom";
 import Footer from "../components/Footer";
 import { AuthContext } from "../provider/AuthProvider";
+import { ThemeContext } from "../provider/ThemeProvider";
 
 const MainLayout = () => {
   const { loading } = useContext(AuthContext);
+  const { theme } = useContext(ThemeContext);
 
   return loading ? (
     <div className="fixed z-50 inset-0 flex items-center justify-center bg-black bg-opacity-80">
@@ -15,12 +17,18 @@ const MainLayout = () => {
       </div>
     </div>
   ) : (
-    <div className="bg-base-200 min-h-screen">
-      <Navbar></Navbar>
-      <div className="w-11/12 mx-auto mt-16  ">
-        <Outlet></Outlet>
+    <div
+      className={`min-h-screen transition-all ${
+        theme === "dark"
+          ? "bg-gray-900 text-white"
+          : "bg-base-200 text-gray-900"
+      }`}
+    >
+      <Navbar />
+      <div className="w-11/12 mx-auto mt-16">
+        <Outlet />
       </div>
-      <Footer></Footer>
+      <Footer />
     </div>
   );
 };

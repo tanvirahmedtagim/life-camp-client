@@ -53,10 +53,8 @@ const ServicesOffered = () => {
   return (
     <section className="mb-12">
       <div className=" mx-auto text-center">
-        <h2 className="text-3xl font-bold text-gray-800 mb-4">
-          Services Offered
-        </h2>
-        <p className="text-gray-600 mb-8">
+        <h2 className="text-3xl font-bold  mb-4">Services Offered</h2>
+        <p className=" mb-8">
           Explore the range of free and specialized medical services available
           at our camp.
         </p>

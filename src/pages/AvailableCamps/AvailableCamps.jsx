@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import {
   FaMapMarkerAlt,
@@ -9,6 +9,7 @@ import {
 } from "react-icons/fa";
 import useCamp from "../../hooks/useCamp";
 import { BounceLoader } from "react-spinners";
+import { ThemeContext } from "../../provider/ThemeProvider"; // Import Theme Context
 
 const AvailableCamps = () => {
   const [camps, loading] = useCamp(); // Ensure useCamp hook provides a loading state
@@ -18,6 +19,8 @@ const AvailableCamps = () => {
   const [layout, setLayout] = useState(
     "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
   );
+
+  const { theme } = useContext(ThemeContext); // Get theme from context
 
   const handleToggle = () => {
     setShowAll(!showAll);
@@ -67,34 +70,46 @@ const AvailableCamps = () => {
   const campsToShow = showAll ? filteredCamps : filteredCamps.slice(0, 6);
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-center mb-8">
+    <div
+      className={`container mx-auto  py-8 transition-all duration-300 ${
+        theme === "dark" ? "bg-gray-900 text-white" : " text-gray-900"
+      }`}
+    >
+      <h1 className="text-3xl font-bold text-center mb-8 text-teal-600">
         Upcoming Medical Camps
       </h1>
 
       {loading ? (
         <div className="fixed z-50 inset-0 flex items-center justify-center bg-black bg-opacity-80">
           <div className="flex flex-col items-center justify-center">
-            <BounceLoader size={100} color="#0b7f68"></BounceLoader>
+            <BounceLoader size={100} color="#0b7f68" />
           </div>
         </div>
       ) : (
         <>
-          {/* Search Bar */}
+          {/* Search Bar & Sorting */}
           <div className="mb-6 flex flex-col sm:flex-row justify-between items-center gap-4">
             <input
               type="text"
               placeholder="Search camps by name, location, or professional"
               value={searchTerm}
               onChange={handleSearchChange}
-              className="p-2 border border-gray-300 rounded-md w-full sm:w-2/3 md:w-1/2"
+              className={`p-2 rounded-md w-full sm:w-2/3 md:w-1/2 border ${
+                theme === "dark"
+                  ? "border-gray-700 bg-gray-800 text-white"
+                  : "border-gray-300 bg-white text-gray-900"
+              }`}
             />
 
             {/* Sort Dropdown */}
             <select
               value={sortCriteria}
               onChange={handleSortChange}
-              className="mt-4 sm:mt-0 p-2 border border-gray-300 rounded-md w-full sm:w-auto"
+              className={`mt-4 sm:mt-0 p-2 rounded-md w-full sm:w-auto border ${
+                theme === "dark"
+                  ? "border-gray-700 bg-gray-800 text-white"
+                  : "border-gray-300 bg-white text-gray-900"
+              }`}
             >
               <option value="name">Sort by Name</option>
               <option value="participants">Sort by Most Registered</option>
@@ -106,7 +121,11 @@ const AvailableCamps = () => {
           <div className="mb-6 text-center">
             <button
               onClick={handleLayoutToggle}
-              className="bg-teal-500 text-white py-2 px-6 rounded-full hover:bg-teal-600 transition"
+              className={`py-2 px-6 rounded-full transition-all duration-300 ${
+                theme === "dark"
+                  ? "bg-teal-600 hover:bg-teal-700 text-white"
+                  : "bg-teal-500 hover:bg-teal-600 text-white"
+              }`}
             >
               Toggle Layout
             </button>
@@ -117,7 +136,11 @@ const AvailableCamps = () => {
             {campsToShow.map((camp) => (
               <div
                 key={camp._id}
-                className="bg-white shadow-lg rounded-lg overflow-hidden"
+                className={`shadow-lg rounded-lg overflow-hidden transition-all duration-300 border ${
+                  theme === "dark"
+                    ? "bg-gray-800 text-white border-gray-700"
+                    : "bg-white border-gray-300"
+                }`}
               >
                 <img
                   src={camp.imageUrl}
@@ -125,29 +148,30 @@ const AvailableCamps = () => {
                   className="w-full h-48 object-cover"
                 />
                 <div className="p-4">
-                  <h3 className="text-xl font-bold mb-3">{camp.name}</h3>
-                  <p className="text-gray-600 flex items-center mb-2">
+                  <h3 className="text-xl font-bold mb-3 text-teal-700">
+                    {camp.name}
+                  </h3>
+                  <p className="flex items-center mb-2">
                     <FaDollarSign className="mr-2 text-teal-500" />
                     <span className="font-semibold">Fees:</span> {camp.fees}
                   </p>
-                  <p className="text-gray-600 flex items-center mb-2">
+                  <p className="flex items-center mb-2">
                     <FaCalendarAlt className="mr-2 text-teal-500" />
                     <span className="font-semibold">Date:</span> {camp.dateTime}
                   </p>
-
-                  <p className="text-gray-600 flex items-center mb-2">
+                  <p className="flex items-center mb-2">
                     <FaMapMarkerAlt className="mr-2 text-teal-500" />
                     <span className="font-semibold">Location:</span>{" "}
                     {camp.location}
                   </p>
-                  <p className="text-gray-600 flex items-center mb-2">
+                  <p className="flex items-center mb-2">
                     <FaUserMd className="mr-2 text-teal-500" />
                     <span className="font-semibold">
                       Healthcare Professional:
                     </span>{" "}
                     {camp.healthcareProfessionalName}
                   </p>
-                  <p className="text-gray-600 flex items-center mb-4">
+                  <p className="flex items-center mb-4">
                     <FaUsers className="mr-2 text-teal-500" />
                     <span className="font-semibold">Participants:</span>{" "}
                     {camp.participantCount}
@@ -155,7 +179,11 @@ const AvailableCamps = () => {
                   <div className="flex justify-between items-center">
                     <Link
                       to={`/camp-details/${camp._id}`}
-                      className="bg-teal-500 text-white py-2 px-6 rounded-full hover:bg-teal-600 transition"
+                      className={`py-2 px-6 rounded-full transition-all duration-300 ${
+                        theme === "dark"
+                          ? "bg-teal-600 hover:bg-teal-700 text-white"
+                          : "bg-teal-500 hover:bg-teal-600 text-white"
+                      }`}
                     >
                       Details
                     </Link>
@@ -170,7 +198,11 @@ const AvailableCamps = () => {
             <div className="text-center mt-8">
               <button
                 onClick={handleToggle}
-                className="bg-teal-500 text-white py-2 px-6 rounded-full hover:bg-teal-600 transition"
+                className={`py-2 px-6 rounded-full transition-all duration-300 ${
+                  theme === "dark"
+                    ? "bg-teal-600 hover:bg-teal-700 text-white"
+                    : "bg-teal-500 hover:bg-teal-600 text-white"
+                }`}
               >
                 {showAll ? "Show Less" : "View More"}
               </button>
