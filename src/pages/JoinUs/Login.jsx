@@ -128,12 +128,12 @@ const Login = () => {
   return (
     <div
       className={`mt-16 w-full flex items-center justify-center ${
-        theme === "dark" ? "bg-gray-900 text-white" : ""
+        theme === "dark" ? "bg-gray-900 text-teal-400" : "text-teal-700"
       }`}
     >
       <div
         className={`w-full md:flex-row flex-col bg-white shadow-lg rounded-lg flex overflow-hidden ${
-          theme === "dark" ? "bg-gray-900 text-white" : ""
+          theme === "dark" ? "bg-gray-900 text-teal-400" : "text-teal-700"
         }`}
       >
         {/* Left Side - Image */}
@@ -168,7 +168,9 @@ const Login = () => {
             <div className="form-control">
               <label
                 className={`label ${
-                  theme === "dark" ? "text-white bg-gray-900" : "text-gray-900"
+                  theme === "dark"
+                    ? "text-teal-400 bg-gray-900"
+                    : "text-teal-700"
                 }`}
               >
                 Email
@@ -242,7 +244,7 @@ const Login = () => {
 
           <p
             className={`text-center ${
-              theme === "dark" ? "text-gray-400" : "text-gray-600"
+              theme === "dark" ? "text-teal-400" : "text-teal-700"
             }`}
           >
             Don't have an account?
@@ -261,7 +263,13 @@ const Login = () => {
       {/* Admin Login Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-80">
+          <div
+            className={` p-6 rounded-lg shadow-lg w-80 ${
+              theme === "dark"
+                ? "text-teal-400 bg-gray-900"
+                : "text-teal-700 bg-white"
+            }`}
+          >
             <h2 className="text-xl font-semibold mb-4">Admin Credentials</h2>
             <p className="mb-2">
               <strong>Email:</strong> {adminCredentials.email}
