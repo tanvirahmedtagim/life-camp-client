@@ -50,7 +50,7 @@ const UpcomingCamps = () => {
               <p className="">
                 📅 {event.date} | 📍 {event.location}
               </p>
-              <Link to="/login">
+              <Link to="/availableCamps">
                 <button className="mt-4 px-4 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600">
                   Register Now
                 </button>
