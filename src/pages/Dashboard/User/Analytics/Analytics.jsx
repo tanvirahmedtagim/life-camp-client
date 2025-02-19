@@ -1,12 +1,12 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Bar } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
-  BarElement,
-  Title,
+  PointElement,
+  LineElement,
   Tooltip,
   Legend,
 } from "chart.js";
@@ -16,8 +16,8 @@ import useAuth from "../../../../hooks/useAuth";
 ChartJS.register(
   CategoryScale,
   LinearScale,
-  BarElement,
-  Title,
+  PointElement,
+  LineElement,
   Tooltip,
   Legend
 );
@@ -59,23 +59,61 @@ const Analytics = () => {
     { labels: [], fees: [] }
   );
 
+  const totalSpending = chartData.fees.reduce((sum, fee) => sum + fee, 0);
+  const numberOfCamps = transactions.length;
+  const averageSpendingPerCamp = numberOfCamps
+    ? totalSpending / numberOfCamps
+    : 0;
+
   const data = {
     labels: chartData.labels,
     datasets: [
       {
         label: "Fees Collected",
         data: chartData.fees,
-        backgroundColor:
-          "linear-gradient(180deg, rgba(0,128,128,1) 0%, rgba(0,200,200,0.5) 100%)",
-        borderColor: "rgba(0, 128, 128, 1)", // Teal border
+        backgroundColor: "rgba(0, 128, 128, 0.6)", // Teal with transparency
+        borderColor: "rgba(0, 128, 128, 1)", // Solid teal border
         borderWidth: 2,
-        hoverBackgroundColor: "rgba(0, 200, 200, 0.8)", // Highlight color on hover
+        fill: true,
       },
     ],
   };
 
   const options = {
     responsive: true,
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: "Camps",
+          color: "#333",
+          font: {
+            size: 14,
+            weight: "bold",
+          },
+        },
+      },
+      y: {
+        title: {
+          display: true,
+          text: "Fees Collected",
+          color: "#333",
+          font: {
+            size: 14,
+            weight: "bold",
+          },
+        },
+        suggestedMin: 0,
+        suggestedMax: Math.max(...chartData.fees) + 10,
+        ticks: {
+          color: "#333",
+          font: {
+            size: 12,
+            weight: "bold",
+          },
+        },
+      },
+    },
     plugins: {
       legend: {
         position: "top",
@@ -98,51 +136,41 @@ const Analytics = () => {
         },
         color: "#008080",
       },
-      tooltip: {
-        callbacks: {
-          label: (tooltipItem) => `Fees: $${tooltipItem.raw}`,
-        },
-        backgroundColor: "rgba(0, 128, 128, 0.8)",
-        titleFont: { size: 14 },
-        bodyFont: { size: 12 },
-      },
-    },
-    scales: {
-      x: {
-        grid: {
-          display: false,
-        },
-        ticks: {
-          color: "#008080",
-          font: {
-            size: 12,
-            weight: "bold",
-          },
-        },
-      },
-      y: {
-        grid: {
-          color: "rgba(0, 128, 128, 0.1)",
-          borderDash: [5, 5],
-        },
-        ticks: {
-          color: "#008080",
-          font: {
-            size: 12,
-            weight: "bold",
-          },
-        },
-        beginAtZero: true,
-      },
     },
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+    <div className="w-11/12  mx-auto  bg-white shadow-lg rounded-lg">
       <h2 className="text-2xl font-bold text-teal-600 text-center mb-6">
         Analytics
       </h2>
-      <Bar data={data} options={options} />
+      <div className="flex justify-between gap-5 mb-6">
+        <div className="w-full lg:w-1/3 bg-teal-100 p-4 rounded-lg text-center">
+          <h3 className="text-xl font-semibold text-teal-600">
+            Total Spending
+          </h3>
+          <p className="text-2xl text-teal-500">${totalSpending.toFixed(2)}</p>
+        </div>
+        <div className="w-full lg:w-1/3 bg-teal-100 p-4 rounded-lg text-center">
+          <h3 className="text-xl font-semibold text-teal-600">
+            Number of Camps
+          </h3>
+          <p className="text-2xl text-teal-500">{numberOfCamps}</p>
+        </div>
+        <div className="w-full lg:w-1/3 bg-teal-100 p-4 rounded-lg text-center">
+          <h3 className="text-xl font-semibold text-teal-600">
+            Avg Spending per Camp
+          </h3>
+          <p className="text-2xl text-teal-500">
+            ${averageSpendingPerCamp.toFixed(2)}
+          </p>
+        </div>
+      </div>
+      <div style={{ width: "100%", height: "300px" }}>
+        {" "}
+        {/* Control size here */}
+        <Line data={data} options={options} />
+      </div>
     </div>
   );
 };

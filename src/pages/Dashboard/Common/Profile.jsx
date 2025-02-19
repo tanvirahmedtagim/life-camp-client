@@ -4,8 +4,8 @@ import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useRole from "../../../hooks/useRole";
 import axios from "axios";
-import { toast } from "react-toastify";
 import Swal from "sweetalert2";
+import cover from "../../../assets/cover.jpg";
 
 const Profile = () => {
   const { user, loading, manageProfile } = useAuth();
@@ -82,9 +82,10 @@ const Profile = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100 px-4 md:px-0">
-      <div className="bg-white shadow-lg rounded-2xl w-full max-w-md md:max-w-2xl lg:max-w-3xl">
+    <div className="flex justify-center items-center min-h-screen  px-4 md:px-0">
+      <div className="bg-white rounded-2xl w-11/12 mx-auto  ">
         <img
+          src={cover}
           alt="cover photo"
           className="w-full mb-4 rounded-t-lg h-40 md:h-48 lg:h-56 object-cover"
         />

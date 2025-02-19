@@ -26,8 +26,8 @@ const PopularCamps = () => {
 
   return (
     <div
-      className={`py-10 transition-all duration-300 ${
-        theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-900"
+      className={`mt-14 transition-all duration-300 ${
+        theme === "dark" ? "bg-gray-900 text-white" : " text-gray-900"
       }`}
       id="popularCamps"
     >

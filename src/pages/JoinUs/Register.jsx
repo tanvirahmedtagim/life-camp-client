@@ -296,7 +296,7 @@ const Register = () => {
           </div>
           <p className="text-center text-teal-500 pb-4">
             Already Have An Account?
-            <Link className="font-bold text-gray-700" to="/login">
+            <Link className="font-bold text-teal-700" to="/login">
               Login
             </Link>
           </p>

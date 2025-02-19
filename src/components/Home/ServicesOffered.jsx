@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ThemeContext } from "../../provider/ThemeProvider";
 
 const ServicesOffered = () => {
+  const { theme } = useContext(ThemeContext);
   const services = [
     {
       title: "General Checkups",
@@ -51,10 +53,14 @@ const ServicesOffered = () => {
   ];
 
   return (
-    <section className="mb-12">
-      <div className=" mx-auto text-center">
-        <h2 className="text-3xl font-bold  mb-4">Services Offered</h2>
-        <p className=" mb-8">
+    <section
+      className={`mb-8 ${
+        theme === "dark" ? "bg-gray-900 text-white" : " text-gray-900"
+      }`}
+    >
+      <div className="mx-auto text-center">
+        <h2 className="text-3xl font-bold mb-4">Services Offered</h2>
+        <p className="mb-8">
           Explore the range of free and specialized medical services available
           at our camp.
         </p>
@@ -62,15 +68,31 @@ const ServicesOffered = () => {
           {services.map((service, index) => (
             <div
               key={index}
-              className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition"
+              className={`${
+                theme === "dark" ? "bg-gray-700" : "bg-white"
+              } rounded-lg shadow-md p-6 hover:shadow-lg transition`}
             >
-              <div className="text-5xl mb-4 text-indigo-500">
+              <div
+                className={`text-5xl mb-4 ${
+                  theme === "dark" ? "text-teal-400" : "text-indigo-500"
+                }`}
+              >
                 {service.icon}
               </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">
+              <h3
+                className={`text-xl font-semibold ${
+                  theme === "dark" ? "text-white" : "text-gray-800"
+                } mb-2`}
+              >
                 {service.title}
               </h3>
-              <p className="text-gray-600">{service.description}</p>
+              <p
+                className={`${
+                  theme === "dark" ? "text-gray-300" : ""
+                }`}
+              >
+                {service.description}
+              </p>
             </div>
           ))}
         </div>

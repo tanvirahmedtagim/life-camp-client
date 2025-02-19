@@ -82,7 +82,7 @@ const Login = () => {
   return (
     <div
       className={`mt-16 w-full flex items-center justify-center ${
-        theme === "dark" ? "bg-gray-800" : "bg-gray-50"
+        theme === "dark" ? "bg-gray-900 text-white" : ""
       }`}
     >
       <div
@@ -98,10 +98,14 @@ const Login = () => {
             className="w-full h-full"
           />
         </div>
-        <div className="w-full md:w-1/2 px-8 md:px-16">
+        <div
+          className={`w-full md:w-1/2 px-8 md:px-16  ${
+            theme === "dark" ? "text-white bg-gray-900" : "text-gray-900"
+          }`}
+        >
           <h1
             className={`text-3xl font-semibold pt-5 text-center ${
-              theme === "dark" ? "text-white" : "text-gray-800"
+              theme === "dark" ? "text-white bg-gray-900" : "text-gray-900"
             } md:mb-8`}
           >
             Login to Your Account
@@ -110,7 +114,7 @@ const Login = () => {
             <div className="form-control">
               <label
                 className={`label ${
-                  theme === "dark" ? "text-gray-400" : "text-gray-600"
+                  theme === "dark" ? "text-white bg-gray-900" : "text-gray-900"
                 }`}
               >
                 Email
@@ -120,7 +124,11 @@ const Login = () => {
                 type="email"
                 required
                 placeholder="Enter your email"
-                className="input input-bordered w-full p-3 rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className={`input input-bordered w-full p-3 rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  theme === "dark"
+                    ? "bg-gray-700 text-white"
+                    : "bg-white text-gray-800"
+                }`}
                 {...register("email", { required: "Email is required" })}
               />
               {errors.email && (
@@ -140,7 +148,11 @@ const Login = () => {
                 type="password"
                 required
                 placeholder="Enter your password"
-                className="input input-bordered w-full p-3 rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className={`input input-bordered w-full p-3 rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  theme === "dark"
+                    ? "bg-gray-700 text-white"
+                    : "bg-white text-gray-800"
+                }`}
                 {...register("password", { required: "Password is required" })}
               />
               {errors.password && (
