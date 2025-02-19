@@ -8,18 +8,27 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { ThemeContext } from "../../provider/ThemeProvider";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
   const { handleLogin, handleGoogleLogin } = useAuth();
   const axiosPublic = useAxiosPublic();
-
   const { theme } = useContext(ThemeContext);
+
+  // Admin Credentials
+  const adminCredentials = {
+    email: "tanvir@gmail.com",
+    password: "@@Tanvir@@007@@",
+  };
+
+  // Modal State
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
 
@@ -40,7 +49,7 @@ const Login = () => {
       // Show success alert using SweetAlert
       Swal.fire({
         title: "Success!",
-        text: "Registered in with Google!",
+        text: "Logged in with Google!",
         icon: "success",
         confirmButtonText: "OK",
         timer: 2000,
@@ -79,6 +88,43 @@ const Login = () => {
     }
   };
 
+  // Open & Close Modal
+  const openAdminModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+  // Login as Admin
+  const loginAsAdmin = async () => {
+    setValue("email", adminCredentials.email);
+    setValue("password", adminCredentials.password);
+    setIsModalOpen(false);
+
+    try {
+      // Trigger the login as admin
+      await handleLogin(adminCredentials.email, adminCredentials.password);
+
+      // Show success alert using SweetAlert
+      Swal.fire({
+        title: "Success!",
+        text: "Logged in as Admin!",
+        icon: "success",
+        confirmButtonText: "OK",
+        timer: 2000,
+        showConfirmButton: false,
+      });
+
+      // Navigate to the dashboard or home page
+      navigate("/");
+    } catch (error) {
+      // Handle error in case login fails
+      Swal.fire({
+        title: "Error!",
+        text: error.message || "Admin login failed.",
+        icon: "error",
+        confirmButtonText: "Try Again",
+      });
+    }
+  };
+
   return (
     <div
       className={`mt-16 w-full flex items-center justify-center ${
@@ -86,7 +132,7 @@ const Login = () => {
       }`}
     >
       <div
-        className={`w-full   md:flex-row flex-col bg-white shadow-lg rounded-lg flex overflow-hidden ${
+        className={`w-full md:flex-row flex-col bg-white shadow-lg rounded-lg flex overflow-hidden ${
           theme === "dark" ? "bg-gray-900 text-white" : ""
         }`}
       >
@@ -99,7 +145,7 @@ const Login = () => {
           />
         </div>
         <div
-          className={`w-full md:w-1/2 px-8 md:px-16  ${
+          className={`w-full md:w-1/2 px-8 md:px-16 ${
             theme === "dark" ? "text-white bg-gray-900" : "text-gray-900"
           }`}
         >
@@ -110,6 +156,14 @@ const Login = () => {
           >
             Login to Your Account
           </h1>
+          {/* Admin Login Button */}
+          <button
+            onClick={openAdminModal}
+            className="w-full mb-4 bg-teal-500 text-white py-2 rounded-lg hover:bg-teal-600 transition"
+          >
+            Admin Login
+          </button>
+
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div className="form-control">
               <label
@@ -120,9 +174,7 @@ const Login = () => {
                 Email
               </label>
               <input
-                name="email"
                 type="email"
-                required
                 placeholder="Enter your email"
                 className={`input input-bordered w-full p-3 rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                   theme === "dark"
@@ -135,6 +187,7 @@ const Login = () => {
                 <p className="text-red-500 text-sm">{errors.email.message}</p>
               )}
             </div>
+
             <div className="form-control">
               <label
                 className={`label ${
@@ -144,9 +197,7 @@ const Login = () => {
                 Password
               </label>
               <input
-                name="password"
                 type="password"
-                required
                 placeholder="Enter your password"
                 className={`input input-bordered w-full p-3 rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                   theme === "dark"
@@ -161,6 +212,7 @@ const Login = () => {
                 </p>
               )}
             </div>
+
             <div className="form-control mt-6">
               <button
                 className={`btn w-full py-3 rounded-lg hover:opacity-90 focus:outline-none transform hover:scale-105 transition-all duration-300 ease-in-out ${
@@ -173,6 +225,7 @@ const Login = () => {
               </button>
             </div>
           </form>
+
           <div className="my-4 text-center">
             <button
               onClick={handleGoogleSignIn}
@@ -186,6 +239,7 @@ const Login = () => {
               Login With Google
             </button>
           </div>
+
           <p
             className={`text-center ${
               theme === "dark" ? "text-gray-400" : "text-gray-600"
@@ -203,6 +257,35 @@ const Login = () => {
           </p>
         </div>
       </div>
+
+      {/* Admin Login Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-80">
+            <h2 className="text-xl font-semibold mb-4">Admin Credentials</h2>
+            <p className="mb-2">
+              <strong>Email:</strong> {adminCredentials.email}
+            </p>
+            <p className="mb-4">
+              <strong>Password:</strong> {adminCredentials.password}
+            </p>
+            <div className="flex justify-end gap-2">
+              <button
+                onClick={closeModal}
+                className="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={loginAsAdmin}
+                className="px-4 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600"
+              >
+                Login as Admin
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       <ToastContainer />
     </div>
   );
