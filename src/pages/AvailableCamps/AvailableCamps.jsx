@@ -71,7 +71,7 @@ const AvailableCamps = () => {
 
   return (
     <div
-      className={`container mx-auto  py-8 transition-all duration-300 ${
+      className={`w-11/12 mx-auto  py-8 transition-all duration-300 ${
         theme === "dark" ? "bg-gray-900 text-white" : " text-gray-900"
       }`}
     >
