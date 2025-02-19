@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { ThemeContext } from "../../provider/ThemeProvider";
+import { Link } from "react-router-dom";
 
 const UpcomingCamps = () => {
   const { theme } = useContext(ThemeContext);
@@ -49,9 +50,11 @@ const UpcomingCamps = () => {
               <p className="">
                 📅 {event.date} | 📍 {event.location}
               </p>
-              <button className="mt-4 px-4 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600">
-                Register Now
-              </button>
+              <Link to="/login">
+                <button className="mt-4 px-4 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600">
+                  Register Now
+                </button>
+              </Link>
             </div>
           ))}
         </div>
